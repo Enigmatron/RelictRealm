@@ -10,8 +10,9 @@ using ItemSystem;
 //
 public class MasterPlayerController : MonoBehaviour /* NetworkBehaviour */
 {
-    //adding for commit
-    #region
+
+
+    #region variables
     Transform charTrans;
     Vector3 angleX;
     Vector3 angleCamera;
@@ -111,15 +112,7 @@ public class MasterPlayerController : MonoBehaviour /* NetworkBehaviour */
         }
     }
 
-    #endregion
 
-    //
-
-    #region movement controll
-
-    /// <summary>
-    /// Movement for this instance.
-    /// </summary>
     float acclX;
     float acclZ;
     public float accelerationCoeffX
@@ -143,6 +136,13 @@ public class MasterPlayerController : MonoBehaviour /* NetworkBehaviour */
     public float testmovespeed = 12;
     public float testjumpspeed = 20;
     public string backwardaxis = "Vertical";
+
+    #endregion
+
+    /// <summary>
+    /// Movement for this entities. need to move it to an abstract class to implement AI capabilities
+    /// </summary>
+    #region movement control
 
 	void BasicMovement(){
     	MoveVector.x = Input.GetAxisRaw("Horizontal")*testmovespeed;
@@ -250,13 +250,14 @@ backwardMovement = Input.GetAxisRaw ("Horizontal") == -1f ? 0.2f : 0.4f;
 
         MoveVector.y -= gravity * Time.deltaTime;
         MoveVector = transform.TransformVector(MoveVector);
+        //replace character controller
         controller.Move(MoveVector * Time.deltaTime);
     }
 
 
 
     /// <summary>
-    /// Player's input control.
+    /// Player's input control. remove the controls for the gui and move it to another
     /// </summary>
     void PlayerInputControl()
     {
@@ -293,9 +294,11 @@ backwardMovement = Input.GetAxisRaw ("Horizontal") == -1f ? 0.2f : 0.4f;
 
     #endregion
 
-    //
-
-    #region
+    
+    /// <summary>
+    /// GUI Controls for the player, this does not belong in this class as it would be applicable on other screens without the player.
+    /// </summary>
+    #region GUI controls
 
     /// <summary>
     /// Raises the GU event.
@@ -316,11 +319,11 @@ backwardMovement = Input.GetAxisRaw ("Horizontal") == -1f ? 0.2f : 0.4f;
         GUI.DragWindow();
         if (GUILayout.Button("Options"))
         {
-
+            Debug.Log("Options");
         }
         if (GUILayout.Button("Controls"))
         {
-
+            Debug.Log("Controls");
         }
         if (GUILayout.Button("Exit Game"))
         {
@@ -331,9 +334,9 @@ backwardMovement = Input.GetAxisRaw ("Horizontal") == -1f ? 0.2f : 0.4f;
 
     #endregion
 
-    //
+    
 
-    #region
+    #region Unity Lifecycle Methods
 
     /// <summary>
     /// Awakens this instance.
@@ -402,10 +405,14 @@ backwardMovement = Input.GetAxisRaw ("Horizontal") == -1f ? 0.2f : 0.4f;
     void LateUpdate()
     {
         //Debug.Log (Rig.MaxXP);
+
+        //TODO move this to another method: camera rotation controlls
         angleX = new Vector3(0, Input.GetAxis("Mouse X") * 3f, 0);
         transform.eulerAngles += angleX;
 
     }
 
     #endregion
+
+
 }

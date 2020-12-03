@@ -4,70 +4,70 @@ using UnityEngine.Networking;
 
 using UnityEngine.Events;
 using UnityEngine;
-using CollectibleSystem;
+// using CollectibleSystem;
 
 
+#region Depreciated Code
+// public struct CollectionNode
+// {
+// 	public EntityState From;
+// 	public EntityState To;
+// 	// public ICollectionUnit Unit;
+// }
+// //public namespace
+// public delegate void GlobalAction (EntityState state);
+// public abstract class GameState 
+// {
+// 	private static GameState gameManager;
 
-public struct CollectionNode
-{
-	public EntityState From;
-	public EntityState To;
-	// public ICollectionUnit Unit;
-}
-//public namespace
-public delegate void GlobalAction (EntityState state);
-public abstract class GameState 
-{
-	private static GameState gameManager;
+// 	// public static GameState instance {
+// 	// 	get {
+// 	// 		if (!gameManager) {
+// 	// 			gameManager = FindObjectOfType (typeof(GameState)) as GameState;
 
-	// public static GameState instance {
-	// 	get {
-	// 		if (!gameManager) {
-	// 			gameManager = FindObjectOfType (typeof(GameState)) as GameState;
+// 	// 			if (!gameManager) {
+// 	// 				Debug.LogError ("There needs to be one active EventManger script on a GameObject in your scene.");
+// 	// 			} else {
+// 	// 				gameManager.Init (); 
+// 	// 			}
+// 	// 		}
 
-	// 			if (!gameManager) {
-	// 				Debug.LogError ("There needs to be one active EventManger script on a GameObject in your scene.");
-	// 			} else {
-	// 				gameManager.Init (); 
-	// 			}
-	// 		}
-
-	// 		return gameManager;
-	// 	}
-	// }
-
-
-	public void GlobalCall (GlobalAction action)
-	{
-		foreach (EntityState i in Entities) {
-			action (i);
-//			if(i.Creations)
-		}
-	}
-
-	static List<EntityState> Entities;
+// 	// 		return gameManager;
+// 	// 	}
+// 	// }
 
 
-	void Init ()
-	{
-		if (eventDictionary == null) {
-			eventDictionary = new Dictionary<string, UnityEvent> ();
-		}
-		if (nodesList == null) {
-			nodesList = new List<CollectionNode> ();
-		}
-		if (collectibleDictionary == null) {
-			collectibleDictionary = new Dictionary<CollectibleInstances, Collectible> () { {
+// 	public void GlobalCall (GlobalAction action)
+// 	{
+// 		foreach (EntityState i in Entities) {
+// 			action (i);
+// //			if(i.Creations)
+// 		}
+// 	}
+
+// 	static List<EntityState> Entities;
+
+
+// 	void Init ()
+// 	{
+// 		if (eventDictionary == null) {
+// 			eventDictionary = new Dictionary<string, UnityEvent> ();
+// 		}
+// 		if (nodesList == null) {
+// 			nodesList = new List<CollectionNode> ();
+// 		}
+// 		if (collectibleDictionary == null) {
+// 			collectibleDictionary = new Dictionary<CollectibleInstances, Collectible> () { {
 				
-					CollectibleInstances.FrostOver ,
-					Collectible.Initialize ().Define_Gain (2).Define_Heap_Limit (8).Define_Loss_On_Death (8).Define_Loss (1).Declare ()
-				}, {	
-					CollectibleInstances.FrostOver ,
-					Collectible.Initialize ().Define_Gain (2).Define_Heap_Limit (8).Define_Loss_On_Death (8).Define_Loss (1).Declare ()
-				}
-			};
-		}
-	}
+// 					CollectibleInstances.FrostOver ,
+// 					Collectible.Initialize ().Define_Gain (2).Define_Heap_Limit (8).Define_Loss_On_Death (8).Define_Loss (1).Declare ()
+// 				}, {	
+// 					CollectibleInstances.FrostOver ,
+// 					Collectible.Initialize ().Define_Gain (2).Define_Heap_Limit (8).Define_Loss_On_Death (8).Define_Loss (1).Declare ()
+// 				}
+// 			};
+// 		}
+// 	}
 
 
 	//		CollectibleInstances.Savagery ,
@@ -89,23 +89,11 @@ public abstract class GameState
 	//		Collectible.Initialize ().Define_Gain (1).Define_Heap_Limit (4).Define_Loss_On_Death (4).Define_Loss (1).Declare ()
 	//	},
 
-
-
-	#region
-
-	private List<CollectionNode> nodesList;
-
-	#endregion
-
-	#region
-
-
-	#endregion
-
-	#region
+	
+	// private List<CollectionNode> nodesList;
 
 	
-
+	/*
 	static Dictionary<CollectibleInstances,Collectible> collectibleDictionary;
 
 
@@ -154,18 +142,15 @@ public abstract class GameState
 			thisEvent.Consume (state);
 		}
 	}
+	*/
 
 
-	#endregion
-
-	#region
-
-	private Dictionary <string, UnityEvent> eventDictionary;
+	// private Dictionary <string, UnityEvent> eventDictionary;
 
 
 
-	public static void StartListening (string eventName, UnityAction listener)
-	{
+	// public static void StartListening (string eventName, UnityAction listener)
+	// {
 		// UnityEvent thisEvent = null;
 		// if (instance.eventDictionary.TryGetValue (eventName, out thisEvent)) {
 		// 	thisEvent.AddListener (listener);
@@ -174,7 +159,7 @@ public abstract class GameState
 		// 	thisEvent.AddListener (listener);
 		// 	instance.eventDictionary.Add (eventName, thisEvent);
 		// }
-	}
+	// }
 
 	// public static void StopListening (string eventName, UnityAction listener)
 	// {
@@ -194,36 +179,36 @@ public abstract class GameState
 	// 	}
 	// }
 
-	#endregion
+// 	#endregion
 
 
 
 
 
-	// public void AnnounceKill (EntityIdentity who, int PercentClaimed, EntityIdentity whom)
-	// {
-	// 	//Broadcast.DrawUI(who.ObtainPhotoId(PhotoIDSize.Small));
-	// 	//Broadcast.DrawUI(Resources.Load("Killfeed Left Percent Bracket");
-	// 	//Broadcast.DrawUI(SpriteNumbers(PercentClaimed));
-	// 	//Broadcast.DrawUI("Killfeed Right Percent Bracket");
-	// 	//Broadcast.DrawUI(whom.ObtainPhotoId(PhotoIDSize.Small));
-	// }
-}
+// 	// public void AnnounceKill (EntityIdentity who, int PercentClaimed, EntityIdentity whom)
+// 	// {
+// 	// 	//Broadcast.DrawUI(who.ObtainPhotoId(PhotoIDSize.Small));
+// 	// 	//Broadcast.DrawUI(Resources.Load("Killfeed Left Percent Bracket");
+// 	// 	//Broadcast.DrawUI(SpriteNumbers(PercentClaimed));
+// 	// 	//Broadcast.DrawUI("Killfeed Right Percent Bracket");
+// 	// 	//Broadcast.DrawUI(whom.ObtainPhotoId(PhotoIDSize.Small));
+// 	// }
+// }
 
 
-public class Assualt_Izarrs_Bunker : GameState
-{
+// public class Assualt_Izarrs_Bunker : GameState
+// {
 
 
 
 
 
-}
+// }
 
-public class Starfall_Plains :GameState
-{
+// public class Starfall_Plains :GameState
+// {
 	
-}
+// }
 
 /*
 public abstract class EntityState : MonoBehaviour
@@ -1678,3 +1663,5 @@ public delegate void DeathListener ();
 //	//	void ReceivedStatusEffect (IStatusEffect se);
 //}
 //
+
+#endregion

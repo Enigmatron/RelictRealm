@@ -1,5 +1,27 @@
 using UnityEngine;
 using System.Collections.Generic;
+
+//TODO Look over the merits of this system
+//Thoughts: Register value and register profile can be adapted to replace collectable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#region Depreciated Code
+
+/*
 // using StatisticSystem;
 
 //public class CollectibleLibrary
@@ -373,3 +395,6 @@ public class IterimRequirement : IRequirement
 	}
 }
 */
+#endregion
+
+

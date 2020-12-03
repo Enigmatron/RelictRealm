@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-
+//this is not a depreciated file it is salvageable 
 
 public abstract class ICombat : MonoBehaviour
 {
@@ -52,6 +52,8 @@ public abstract class ICombat : MonoBehaviour
 	/// </summary>
 	public int Flags;
 
+
+	/* Err'd from refactoring
 	public abstract void OnInteraction_EnemyNPC (EntityState hit);
 
 	public abstract void OnInteraction_NeutralNPC (EntityState hit);
@@ -68,39 +70,7 @@ public abstract class ICombat : MonoBehaviour
 
 	public abstract void OnInteraction_Enemy_Contruct (EntityState hit);
 
-
-	/// <summary>
-	/// The number of collisions: if 0 then infinite; else finite according to the var.
-	/// </summary>
-	public float NumberOfCollisions;
-
-	/// <summary>
-	/// The persistance: either the max distance of a ray to the duration a projectile lives for.
-	/// </summary>
-	public abstract float Persistance {
-		get;
-	}
-
-	public float PersistanceProgress;
-
-
-
-	public List<EntityState> TotalEnemiesHit;
-	public List<EntityState> EnemiesHit;
-
-
-
-	/// <summary>
-	/// The hit refresh time: the time needed to clear the hit list; if 0 then NOClearing; else clears lists at time.
-	/// </summary>
-	public abstract float HitRefreshTime {
-		get;
-	}
-
-	public float HitRefreshProgress;
-
-	public abstract Vector3 LocalOffset{ get; }
-
+	
 	public void Interaction (EntityState hit)
 	{
 //		if (hit is EntityState) {
@@ -141,8 +111,75 @@ public abstract class ICombat : MonoBehaviour
 //			
 //		}
 	}
+public List<EntityState> TotalEnemiesHit;
+	public List<EntityState> EnemiesHit;
+
+private void ProccessArea ()
+	{
+		Object[] tempList = Resources.FindObjectsOfTypeAll (typeof(GameObject));
+		Dictionary<GameObject,EntityState> realList = new Dictionary<GameObject,EntityState> ();
+		EntityState temp;
+		GameObject temp2;
+
+		foreach (Object obj in tempList) {
+			if (obj is EntityState && obj is GameObject) {
+				temp = (EntityState)obj;
+				temp2 = (GameObject)obj;
+//				if (temp is IDamagable)
+				realList.Add (temp2, temp);
+			}
+		}
+//		return realList;
+
+		foreach (KeyValuePair<GameObject, EntityState> keyval in realList) {
+			foreach (Bounds bound in KillzoneAreaReturn ())
+				if (bound.Intersects (keyval.Key.GetComponent<Collider> ().bounds)) {
+					Interaction (keyval.Value);
+				}
+		}
+	}
 
 
+
+	public EntityState Entity;
+
+
+
+	*/
+
+	/// <summary>
+	/// The number of collisions: if 0 then infinite; else finite according to the var.
+	/// </summary>
+	public float NumberOfCollisions;
+
+	/// <summary>
+	/// The persistance: either the max distance of a ray to the duration a projectile lives for.
+	/// </summary>
+	public abstract float Persistance {
+		get;
+	}
+
+	public float PersistanceProgress;
+
+
+
+
+	
+
+
+
+	/// <summary>
+	/// The hit refresh time: the time needed to clear the hit list; if 0 then NOClearing; else clears lists at time.
+	/// </summary>
+	public abstract float HitRefreshTime {
+		get;
+	}
+
+	public float HitRefreshProgress;
+
+	public abstract Vector3 LocalOffset{ get; }
+
+	
 	//	public void Sweep
 
 	public void Update ()
@@ -150,7 +187,7 @@ public abstract class ICombat : MonoBehaviour
 		if (HitRefreshProgress >= HitRefreshTime) {
 			HitRefreshProgress = 0;
 //			AlliesHit.Clear ();
-			EnemiesHit.Clear ();
+			//EnemiesHit.Clear ();
 		} else {
 			HitRefreshProgress = MathLambda.AddTillEqualTo (HitRefreshProgress, Time.deltaTime, HitRefreshTime);
 		}
@@ -240,31 +277,7 @@ public abstract class CombatKillzone<killzone>  : ICombat where killzone : Colli
 
 
 	//TODO: Look over this to make sure this works
-	private void ProccessArea ()
-	{
-		Object[] tempList = Resources.FindObjectsOfTypeAll (typeof(GameObject));
-		Dictionary<GameObject,EntityState> realList = new Dictionary<GameObject,EntityState> ();
-		EntityState temp;
-		GameObject temp2;
-
-		foreach (Object obj in tempList) {
-			if (obj is EntityState && obj is GameObject) {
-				temp = (EntityState)obj;
-				temp2 = (GameObject)obj;
-//				if (temp is IDamagable)
-				realList.Add (temp2, temp);
-			}
-		}
-//		return realList;
-
-		foreach (KeyValuePair<GameObject, EntityState> keyval in realList) {
-			foreach (Bounds bound in KillzoneAreaReturn ())
-				if (bound.Intersects (keyval.Key.GetComponent<Collider> ().bounds)) {
-					Interaction (keyval.Value);
-				}
-		}
-	}
-
+	
 
 
 	public new void Update ()
@@ -334,7 +347,6 @@ public abstract class CombatEntity : ICombat
 	//
 	//	public abstract void Interaction_Wall ();
 
-	public EntityState Entity;
 
 	public Vector3 Direction;
 
@@ -361,7 +373,7 @@ public abstract class CombatEntity : ICombat
 	}
 }
 
-
+#region Depreciated Code
 /*
 public abstract class Combat_Projectile : ICombat
 {
@@ -651,3 +663,5 @@ public abstract class Combat_Ray : ICombat
 
 }
 */
+#endregion
+

@@ -4,9 +4,10 @@ using UnityEngine;
 
 
 
-///TODO Depreciate as it is replaced by RegisterValue for its implentation 
-//A struct that contains information for the StatProfile
-public struct EntityRegisterProfile
+/// <Summary>
+/// this class manages values such as health stats and so on
+/// <Summary>
+public class EntityRegisterProfile
 {
     ////implement variable enum to remove the need for strings to hold variable name
     // public enum Variables{

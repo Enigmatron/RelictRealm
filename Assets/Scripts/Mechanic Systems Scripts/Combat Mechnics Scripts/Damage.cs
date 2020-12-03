@@ -8,17 +8,24 @@ public class Damage
 {
 	
 	public string Name;
-	public EntityState Dealer;
+
+	//should hold a reference to the damager and not a string
+	public string Dealer;
 	public int DamageEquation;
 
 	struct DamagePayload{
 		public int damage;
 		public string Name;
-		public EntityState Dealer; 
+		
+		
+		//should hold a reference to the damager and not a string
+		public string Dealer; 
 
 	}
 
-	public Damage (string name, EntityState dealer, int totalDamage)
+
+	//should hold a reference to the damager and not a string
+	public Damage (string name, string dealer, int totalDamage)
 	{
 		Name = name; 
 		Dealer = dealer;
@@ -27,6 +34,8 @@ public class Damage
 }
 
 
+
+#region Depreciated Code
 /*
 	public class Profile
 	{
@@ -59,3 +68,5 @@ public class Damage
 		}
 	}
 */
+
+#endregion

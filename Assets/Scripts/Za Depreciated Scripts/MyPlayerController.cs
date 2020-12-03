@@ -6,10 +6,13 @@ using System.Collections;
 using System.Collections.Generic;
 // using StatisticSystem;
 
+
+
+//
 public class MyPlayerController
 {
 
-	#region
+	#region variables
 
 	//
 	//Player playerConnected;
@@ -101,7 +104,7 @@ public class MyPlayerController
 
 	//
 
-	#region
+	#region Character Control
 
 	/// <summary>
 	/// Movement for this instance.
@@ -226,7 +229,7 @@ public class MyPlayerController
 
 	//
 
-	#region
+	#region Unity Methods
 
 	/// <summary>
 	/// Raises the GU event.
@@ -260,7 +263,7 @@ public class MyPlayerController
 
 	//
 
-	#region
+	#region initialization methods
 
 	/// <summary>
 	/// Awakens this instance.
