@@ -12,11 +12,11 @@ using System.Collections;
 // 	IcedIngots
 // }
 
-public enum ProjectileMovementType
-{
-	OverHead,
-	StraightThrough,
-}
+// public enum ProjectileMovementType
+// {
+// 	OverHead,
+// 	StraightThrough,
+// }
 
 //public enum ProjectileCollisionType
 //{

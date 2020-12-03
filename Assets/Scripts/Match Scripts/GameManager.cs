@@ -11,16 +11,16 @@ public class TeamState
 	{
 	}
 
-	public TeamInstance Team;
+	// public TeamInstance Team;
 	public bool ForcedVisibility;
 	public int TotalDeaths;
 	public int TotalKills;
 
 
-	public TeamState (TeamInstance team)
-	{
-		Team = team;
-	}
+	// public TeamState (TeamInstance team)
+	// {
+	// 	Team = team;
+	// }
 
 
 	//	private List<Player> players;

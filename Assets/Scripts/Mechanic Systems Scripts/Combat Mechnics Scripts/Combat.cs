@@ -6,7 +6,6 @@ using System.Collections.Generic;
 
 
 //this is not a depreciated file it is salvageable 
-
 public abstract class ICombat : MonoBehaviour
 {
 	protected abstract TeamInstance Team {

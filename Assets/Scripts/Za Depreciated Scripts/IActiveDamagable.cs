@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
-public enum TeamInstance
-{
-	Neutral,
-	Delta,
-	Theta,
+// public enum TeamInstance
+// {
+// 	Neutral,
+// 	Delta,
+// 	Theta,
 
-}
+// }
 
 
 

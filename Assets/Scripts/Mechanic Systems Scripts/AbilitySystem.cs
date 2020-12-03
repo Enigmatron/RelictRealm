@@ -1,7 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-// using StatisticSystem;
+
+
+//TODO it seems like ability must be a curcuit with leaves. Requirements are branches and ExecuteFrames are leaves once the branch decides to move on
+//90% of this can be replaced by well placed UnityEvents 
+
+
+
 
 public delegate void AbilityLink ();
 
@@ -24,10 +30,10 @@ public interface IRequirementFrame
 public struct Blank_Frame : IRequirementFrame, IExecuteFrame
 {
 
-	// public bool Activate (HealthController cont)
-	// {
-	// 	return activated;
-	// }
+	
+	
+	
+	
 
 	public bool Activated {
 		get {
@@ -45,53 +51,48 @@ public struct Blank_Frame : IRequirementFrame, IExecuteFrame
 
 
 //
-public struct Combat_Frame : IExecuteFrame, IRequirementFrame
-{
+// public struct Combat_Frame : IExecuteFrame, IRequirementFrame
+// {
 
-	public bool Update ()
-	{
-		return Combat == null;
-	}
-
-
-	// public bool Activate (HealthController cont)
-	// {
-	// 	throw new System.NotImplementedException ();
-	// }
+// 	public bool Update ()
+// 	{
+// 		return Combat == null;
+// 	}
 
 
-	public ICombat Combat;
-	bool activated;
 
-	public bool Activated {
-		get {
-			return activated;
-		}
-	}
-	//
-	public Combat_Frame (ICombat Key)
-	{
-		activated = false;
 
-		Combat = Key;
-	}
-}
 
-//TODO replace with a listener event and a register create event
+
+
+
+	// public ICombat Combat;
+// 	bool activated;
+
+// 	public bool Activated {
+// 		get {
+// 			return activated;
+// 		}
+// 	}
+
+// 	// public Combat_Frame (ICombat Key)
+// 	// {
+// 	// 	activated = false;
+
+// 	// 	Combat = Key;
+// 	// }
+// }
+
+
 public struct Movement_Frame : IExecuteFrame, IRequirementFrame
 {
 	public bool Update (){
 		return true;
 	}
-	// public bool Activate (HealthController cont)
-	// {
-	// 	return true;
-	// 	// return cont.receive (MovementCommand);
-	// }
 
 	public MovementCommand Command;
 
-	//
+	
 	public bool Finished {
 		get {
 			return Command.Finished;
@@ -99,7 +100,7 @@ public struct Movement_Frame : IExecuteFrame, IRequirementFrame
 	}
 
 
-	//
+	
 	bool activated;
 
 	public bool Activated {
@@ -108,7 +109,7 @@ public struct Movement_Frame : IExecuteFrame, IRequirementFrame
 		}
 	}
 
-	//
+
 	public Movement_Frame (MovementCommand Key)
 	{
 		Command = Key;
@@ -116,33 +117,6 @@ public struct Movement_Frame : IExecuteFrame, IRequirementFrame
 	}
 }
 
-//
-//public struct Sequence_Sector_Frame : IExecuteFrame
-//{
-//	bool IExecuteFrame.Activate ()
-//	{
-//		throw new System.NotImplementedException ();
-//	}
-//
-//
-//	bool activated;
-//
-//	public bool Activated {
-//		get {
-//			return activated;
-//		}
-//	}
-//
-//	public SequenceSector Command;
-//
-//	//
-//	public Sequence_Sector_Frame (SequenceSector Key)
-//	{
-//		activated = false;
-//
-//		Command = Key;
-//	}
-//}
 
 //generally the idle frame for ability initial activation
 public struct Activate_Frame : IRequirementFrame
