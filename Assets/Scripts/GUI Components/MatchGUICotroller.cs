@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class PlayerGUIComponent : MonoBehaviour
+
+public class MatchGUIController : MonoBehaviour
 {
 	public delegate void EscapeMenu();
 	//public static event EscapeMenu pause;
@@ -13,7 +14,7 @@ public class PlayerGUIComponent : MonoBehaviour
 	private Rect windowRect = new Rect(Screen.width / 3, 0, Screen.width / 3, Screen.width / 4);
 	string win1ToolTip;
 
-	//
+	//TODO Load in save files that will be called on to set the values for the character
 	void Awake () {
 		Application.targetFrameRate = 120;
 	}

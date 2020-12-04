@@ -1,9 +1,8 @@
 ﻿// using UnityEngine;
 // using System.Collections;
 
-// public class M_Ward : MonoBehaviour {
-// //	TeamInstances team;
-// 	Collider area;
+// public class EnvironmentState : MonoBehaviour {
+
 // 	// Use this for initialization
 // 	void Start () {
 	

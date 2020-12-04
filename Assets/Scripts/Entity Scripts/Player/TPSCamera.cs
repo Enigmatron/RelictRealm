@@ -5,6 +5,8 @@ public class TPSCamera : MonoBehaviour {
 	Vector3 angle;
 	Vector3 Max = new Vector3(80,0,0);
 	Vector3 Min = new Vector3(330f,0,0);
+
+	//possibly used to grab where the camera is looking at
 	public Vector3 curr;
 	
 	// Update is called once per frame

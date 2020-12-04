@@ -2,25 +2,20 @@
 using UnityEngine.Networking;
 using System.Collections;
 using ItemSystem;
-
+using EntityType;
 
 //TODO
 //Add Step_Movement Compatibility
 //Add Movement Prediction
 //
-public class MasterPlayerController : MonoBehaviour /* NetworkBehaviour */
+public class MasterPlayerController :  MoveableEntity /* NetworkBehaviour */
 {
 
 
     #region variables
-    Transform charTrans;
-    Vector3 angleX;
-    Vector3 angleCamera;
-    Vector3 curr;
-    Vector3 MoveVector = Vector3.zero;
-    float currAcceleration;
-    public float gravity = 32.2F;
-    CharacterController controller;
+
+    
+
     private bool showInventory = false;
     private bool showOptions = false;
     private Rect windowRect = new Rect(Screen.width / 3, 0, Screen.width / 3, Screen.width / 4);
@@ -113,146 +108,16 @@ public class MasterPlayerController : MonoBehaviour /* NetworkBehaviour */
     }
 
 
-    float acclX;
-    float acclZ;
-    public float accelerationCoeffX
-    {
-        get
-        {
-            return Mathf.Sqrt((Mathf.Pow((acclX) / 2, 3)));
-        }
-    }
-    public float accelerationCoeffZ
-    {
-        get
-        {
-            return Mathf.Sqrt((Mathf.Pow((acclZ) / 2, 3)));
-        }
-    }
-    float lastDirectionX = 1;
-    float lastDirectionZ = 1;
-
-
-    public float testmovespeed = 12;
-    public float testjumpspeed = 20;
-    public string backwardaxis = "Vertical";
+    
 
     #endregion
 
     /// <summary>
-    /// Movement for this entities. need to move it to an abstract class to implement AI capabilities
+    /// Movement for this entities. need to move it to an abstract class to implement AI capabilities; moved to entitytemplate
     /// </summary>
-    #region movement control
-
-	void BasicMovement(){
-    	MoveVector.x = Input.GetAxisRaw("Horizontal")*testmovespeed;
-		MoveVector.z = Input.GetAxisRaw("Vertical")*testmovespeed;
-		MoveVector = transform.TransformVector(MoveVector);
-        controller.Move(MoveVector * Time.deltaTime);
-    }
-    void AdvanceMovement()
-    {
-        float movespeed = testmovespeed;
-        float jumpspeed = testjumpspeed;
-        float backwardMovement = Input.GetAxisRaw(backwardaxis) == -1f ? 0.4f : 1f;
-
-		#region commented out code
-/*
-// 		float backwardMovement = 1;
-// 		// if (state == null)
-// 		// 	state = GetComponentInParent<SovereignState> ();
-// 		// Debug.Log (state.CompStat.Move_Speed);
-// 		// Debug.Log (state.CompStat.Jump_Height);
-
-if (controller.isGrounded) {
-backwardMovement = Input.GetAxisRaw ("Horizontal") == -1f ? 0.4f : 1f;
-//			MoveVector = new Vector3 (Input.GetAxisRaw ("Horizontal") * backwardMovement, 0, Input.GetAxisRaw ("Vertical") * backwardMovement);
-}
-else {
-backwardMovement = Input.GetAxisRaw ("Horizontal") == -1f ? 0.2f : 0.4f;
-//			MoveVector = new Vector3 (Input.GetAxisRaw ("Horizontal") * backwardMovement, 0, Input.GetAxisRaw ("Vertical") * backwardMovement);
-}		
-// MoveVector *= 
-// // state.CompStat.Move_Speed;
-// 12;
-
-// MoveVector = new Vector3 (Input.GetAxisRaw ("Horizontal"), 0, Input.GetAxisRaw ("Vertical"));
-
-////				- (state.CompStat.Move_Speed * state.StatusEffectVariables.Slow_Value);
-//			MoveVector = transform.TransformDirection (MoveVector);
-// MoveVector = transform.TransformDirection (MoveVector);
-// if(state.StatusEffectVariables.isStun || state.StatusEffectVariables.isSnare){
-
-// }
-// else {
-*/
-
-/*
-				// 	if (state.MoveCommands.Count != 0) {
-				// 		foreach(IMovementCommand command in state.MoveCommands){
-				// 			if (command.Finished)
-				// 				state.MoveCommands.Remove (command);
-				// 			else {
-				// 				MoveVector += command.AcceleratedDirection * Time.deltaTime;
-				// 				command.Refresh ();
-				// 			}
-				// 		}
-				// }
-
-			// }
-
-			// if (controller.isGrounded) {
-			// 	backwardMovement = Input.GetAxisRaw ("Vertical") == -1f ? 0.6f : 1;
-			// 	MoveVector *= backwardMovement
-			// 	//* state.CompStat.Move_Speed;
-			// 	*12
-			// 	;
-			// }
-			// else if (controller.isGrounded) {
-			// 	backwardMovement = Input.GetAxisRaw ("Vertical") == -1f ? 0.4f : 0.6f;
-			// 	MoveVector *= backwardMovement
-			// 	//* state.CompStat.Move_Speed;
-			// 	*12
-			// 	;
-			// }	
-			// MoveVector = transform.TransformDirection (MoveVector);
+    // #region movement control
 
 
-	// 		if (Input.GetButtonDown ("Jump") && controller.isGrounded) {
-	// //			MoveVector *= 0.85f;
-	// 			MoveVector.y = 
-	// 			//state.CompStat.Jump_Height;
-	// 			12;
-	// 		}	
-*/
-#endregion
-
-		//side to side movement
-        MoveVector.x = Input.GetAxisRaw("Horizontal") * backwardMovement * movespeed;
-		//forward back movement
-        MoveVector.z = Input.GetAxisRaw("Vertical") * backwardMovement* movespeed;
-
-        if (controller.isGrounded)
-        {
-            if (Input.GetButtonDown("Jump"))
-            {
-                MoveVector.y =
-                jumpspeed;
-            }
-        }
-        if (!controller.isGrounded)
-        {
-            MoveVector.x *= 0.85f;
-            MoveVector.z *= 0.85f;
-        }
-
-
-
-        MoveVector.y -= gravity * Time.deltaTime;
-        MoveVector = transform.TransformVector(MoveVector);
-        //replace character controller
-        controller.Move(MoveVector * Time.deltaTime);
-    }
 
 
 
@@ -292,7 +157,6 @@ backwardMovement = Input.GetAxisRaw ("Horizontal") == -1f ? 0.2f : 0.4f;
         }
     }
 
-    #endregion
 
     
     /// <summary>
@@ -387,12 +251,12 @@ backwardMovement = Input.GetAxisRaw ("Horizontal") == -1f ? 0.2f : 0.4f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         PlayerInputControl();
-        AdvanceMovement();
+        Movement(new Vector3(
+            Input.GetAxisRaw("Horizontal"), Input.GetButtonDown("Jump")?1.0f: 0.0f, Input.GetAxisRaw("Vertical")
+            ));
     }
 
-    /// <summary>
-    /// Update the happens very frequently.
-    /// </summary>
+
     void FixedUpdate()
     {
 

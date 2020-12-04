@@ -270,33 +270,7 @@ public class Ability
 	}
 
 	public bool startedSequence;
-	//
-	// public void Refresh (HealthController control)
-	// {
-	// 	if (Activate) {
-	// 		startedSequence = true;
-	// 		currentFrame = 0;
-	// 		CurrentFrame = Frames [(int)currentFrame];
-	// 	}
-	// 	if (startedSequence) {
-	// 		if (((SequenceSector)CurrentFrame).Finished) {
-	// 			currentFrame++;
-	// 			//currentFrame = currentFrame < (Frames.Count - 1) ? currentFrame : null;
-	// 			if (!(currentFrame < Frames.Count - 1))
-	// 				CurrentFrame = Frames [(int)currentFrame];
-	// 			else {
-	// 				CurrentFrame = null;
-	// 				startedSequence = false;
-	// 			}
-	// 		}
-	// 		((SequenceSector)CurrentFrame).Refresh (control);
-				
-	// 	}
-	// }
 
-
-
-	//
 	protected Ability ()
 	{
 

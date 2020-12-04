@@ -4,20 +4,12 @@ using System.Collections;
 
 
 
-public enum EntityTeam{
-    Iota,
-    Eta,
-    Neutral, //they are attackable
-    NPC, // they cant be attacked
-}
-public enum EntityID{
-    Kenjinn,
-    Tower
-}
+
+
 public abstract class CharacterComponent : Component{
     // ValueProfile statProfile;
-    EntityTeam team;
-    EntityID id;
+    // EntityTeam team;
+    // EntityID id;
     
 
     public void setValue(string name, float val){
