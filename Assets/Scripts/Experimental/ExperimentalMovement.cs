@@ -50,31 +50,13 @@ public class ExperimentalMovement : MonoBehaviour
 	void OnCollisionExit (Collision collisionInfo)
 	{
 		if (collisionInfo.collider == currentGrounded) {
-//			Debug.Log ("Ungrounded");
 			isGrounded = false;
 		}
-		//		Debug.Log("working");
-//		if (collisionInfo.contacts.Length > 0) {
-//			ContactPoint contact = collisionInfo.contacts [0];
-//			if (Vector3.Dot (contact.normal, Vector3.up) > 0.5) {
-//				isGrounded = false;
-//				Debug.Log ("Ungrounded");
-//			}
-//		}
-//		if(collisionInfo.gameObject.name == "Terrain")
-//		{
-//			isGrounded = false;
-//			Debug.Log("hit");
-//		}
-		//		if (collisionInfo.gameObject.tag == "Terrain") {
-		//			isGrounded = true;
-		//		}
 	}
 
 
 
 
-	// Update is called once per frame
 	void FixedUpdate ()
 	{
 		if (Input.GetAxisRaw ("Horizontal") != 0 || Input.GetAxisRaw ("Vertical") != 0)

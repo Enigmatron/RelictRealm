@@ -8,7 +8,7 @@ using EntityType;
 //Add Step_Movement Compatibility
 //Add Movement Prediction
 //
-public class MasterPlayerController :  MoveableEntity /* NetworkBehaviour */
+public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
 {
 
 
@@ -237,10 +237,8 @@ public class MasterPlayerController :  MoveableEntity /* NetworkBehaviour */
     /// </summary>
     void Start()
     {
-
         controller = GetComponent<CharacterController>();
         charTrans = transform.GetChild(0);
-
     }
 
     /// <summary>
@@ -248,6 +246,7 @@ public class MasterPlayerController :  MoveableEntity /* NetworkBehaviour */
     /// </summary>
     void Update()
     {
+        // expJump();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         PlayerInputControl();
@@ -259,17 +258,13 @@ public class MasterPlayerController :  MoveableEntity /* NetworkBehaviour */
 
     void FixedUpdate()
     {
-
-        //Debug.Log (Time.deltaTime);
-        //Debug.DrawRay(TargetCast.origin, TargetCast.direction);
-
+        
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        //Debug.Log (Rig.MaxXP);
-
+        
         //TODO move this to another method: camera rotation controlls
         angleX = new Vector3(0, Input.GetAxis("Mouse X") * 3f, 0);
         transform.eulerAngles += angleX;
