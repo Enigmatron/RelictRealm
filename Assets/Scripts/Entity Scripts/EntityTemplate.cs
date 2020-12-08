@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 
 namespace EntityType{
     
-
+    //TODO replace with active entity
     public abstract class MoveableEntity : ActiveEntity{
         #region Variables
         protected Transform charTrans;
@@ -77,28 +78,32 @@ namespace EntityType{
             controller.Move(MoveVector * Time.deltaTime);
         }
     }
-    
-    public abstract class ComabatEnity : ActiveEntity
-    {
-
-        // Start is called before the first frame update
-        void Start()
-        {
-            
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
-    }
 
     public abstract class ActiveEntity : MonoBehaviour{
+        Animation onDamageAnim;
+        Animation onDeathAnim;
+        UnityEvent onDeathEvent;
+        UnityEvent onDamageEvent;
 
+        EntityRegisterProfile profile;
     }
     public abstract class PassiveEntity : MonoBehaviour{
+        //how many hits till it dies;
+        int hitcount;
+        //the current counter
+        int currentHitcount;
+        //the physics involved in the system
+        Rigidbody physics;
+
+        Animation OnHitAnimationAnim;
+        Animation OnDestructionAnimationAnim;
+        UnityEvent onDeathEvent;
+        UnityEvent onDamageEvent;
+
+
 
     }
+
+    
 
 }

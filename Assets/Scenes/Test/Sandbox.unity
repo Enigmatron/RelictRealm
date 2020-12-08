@@ -137,14 +137,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 50927631}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccf792bd1a2acde47b261d55a84d000b, type: 3}
+  m_Script: {fileID: 11500000, guid: fa4ac84678b58d94f84ddb52d99e352f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: 32.2
-  thirdCamera: {fileID: 0}
   testmovespeed: 12
   testjumpspeed: 20
   backwardaxis: Vertical
+  thirdCamera: {fileID: 0}
 --- !u!1 &103424710 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 167154, guid: 0840e96cc066844509b5055068827c19,
@@ -764,7 +764,7 @@ PrefabInstance:
     - target: {fileID: 513208296305367398, guid: c05700cc08545a24bb252719280ef718,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 513208296305367399, guid: c05700cc08545a24bb252719280ef718,
         type: 3}

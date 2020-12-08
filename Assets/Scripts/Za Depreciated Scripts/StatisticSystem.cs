@@ -1584,125 +1584,125 @@ namespace StatisticSystem
 
 */
 
-	/// <summary>
-	/// State status.
-	/// </summary>
-	[System.Serializable]
-	public struct StateStatus
-	{
-		public bool Rending;
-		public bool Steeled;
-		//
-		public bool Shield_Shattered;
-		//
-		public bool Armor_Shatter {
-			get {
-				return true;
-			}
-		}
+	// /// <summary>
+	// /// State status.
+	// /// </summary>
+	// [System.Serializable]
+	// public struct StateStatus
+	// {
+	// 	public bool Rending;
+	// 	public bool Steeled;
+	// 	//
+	// 	public bool Shield_Shattered;
+	// 	//
+	// 	public bool Armor_Shatter {
+	// 		get {
+	// 			return true;
+	// 		}
+	// 	}
 
-		public bool Out_Of_Health {
-			get {
-				return true;
-			}
-		}
+	// 	public bool Out_Of_Health {
+	// 		get {
+	// 			return true;
+	// 		}
+	// 	}
 
-		public bool Paused;
+	// 	public bool Paused;
 
 
-		public bool Invincible;
-		public bool Immune_To_Status_Efects;
+	// 	public bool Invincible;
+	// 	public bool Immune_To_Status_Efects;
 
-		public bool? Moving;
-		public bool Levitating;
-		public bool Immobile;
+	// 	public bool? Moving;
+	// 	public bool Levitating;
+	// 	public bool Immobile;
 
-		public bool Invisible;
-	}
+	// 	public bool Invisible;
+	// }
 
-	/// <summary>
-	/// Controller status.
-	/// </summary>
-	[System.Serializable]
-	public struct ControllerStatus
-	{
-		public bool In_Tactic_Mobile, In_Tactic_Immobile, In_Tactic_Stasis, In_Tactic_Invincible;
+	// /// <summary>
+	// /// Controller status.
+	// /// </summary>
+	// [System.Serializable]
+	// public struct ControllerStatus
+	// {
+	// 	public bool In_Tactic_Mobile, In_Tactic_Immobile, In_Tactic_Stasis, In_Tactic_Invincible;
 
-		public bool In_Tactic {
-			get {
-				return (In_Tactic_Mobile || In_Tactic_Immobile || In_Tactic_Stasis || In_Tactic_Invincible);
-			}
-		}
+	// 	public bool In_Tactic {
+	// 		get {
+	// 			return (In_Tactic_Mobile || In_Tactic_Immobile || In_Tactic_Stasis || In_Tactic_Invincible);
+	// 		}
+	// 	}
 
-		public bool Weapon_Spree;
-		public bool Character_Cant_Rotate;
-	}
+	// 	public bool Weapon_Spree;
+	// 	public bool Character_Cant_Rotate;
+	// }
 
-	/// <summary>
-	/// Status effects. Holds Status Effects and variables relating to their implementation.
-	/// </summary>
-	/// 
-	/*
-	[System.Serializable]
-	public struct StatusEffects
-	{
-		#region
+	// /// <summary>
+	// /// Status effects. Holds Status Effects and variables relating to their implementation.
+	// /// </summary>
+	// /// 
+	// /*
+	// [System.Serializable]
+	// public struct StatusEffects
+	// {
+	// 	#region
 
-		Dictionary<IStatusEffect, IState> statusEffectsList;
+	// 	Dictionary<IStatusEffect, IState> statusEffectsList;
 
-		public Dictionary<IStatusEffect, IState> StatusEffectsList {
-			get {
+	// 	public Dictionary<IStatusEffect, IState> StatusEffectsList {
+	// 		get {
 				
-				return statusEffectsList;
-			}
-		}
+	// 			return statusEffectsList;
+	// 		}
+	// 	}
 
-		IState Owner;
+	// 	IState Owner;
 
-		int BlindnessCount;
-		int DazeCount;
-		int DefenseBypassCount;
-		int DefenseSuppressionCount;
-		int KnockDownCount;
-		int CoordinationBlockCount;
-		int NeutralizeCount;
-		int DeaccelerateCount;
-		int SnareCount;
-		int StaggerCount;
-		int StrikeCount;
-		int NeutralizeCount;
-		int SurgeCount;
-		int SuppressCount;
+	// 	int BlindnessCount;
+	// 	int DazeCount;
+	// 	int DefenseBypassCount;
+	// 	int DefenseSuppressionCount;
+	// 	int KnockDownCount;
+	// 	int CoordinationBlockCount;
+	// 	int NeutralizeCount;
+	// 	int DeaccelerateCount;
+	// 	int SnareCount;
+	// 	int StaggerCount;
+	// 	int StrikeCount;
+	// 	int NeutralizeCount;
+	// 	int SurgeCount;
+	// 	int SuppressCount;
 
-		float slowValue;
-		float blindnessValue;
-		float dazeValue;
-		float defenseSuppressValue;
-		float strikeValue;
-		Vector3 strikeDirection;
+	// 	float slowValue;
+	// 	float blindnessValue;
+	// 	float dazeValue;
+	// 	float defenseSuppressValue;
+	// 	float strikeValue;
+	// 	Vector3 strikeDirection;
 
 	
-		 * Blindness
-		 * Daze
-		 * DefenseBypass
-		 * DefenseSurpression
-		 * KnockDown
-		 * CoordinationBlock
-		 * Neutralize
-		 * Deaccelerate
-		 * Snare
-		 * Stagger
-		 * Strike
-		 * Neutralize
-		 * Surge
-		 * Suppress
-		 *
+	// 	 * Blindness
+	// 	 * Daze
+	// 	 * DefenseBypass
+	// 	 * DefenseSurpression
+	// 	 * KnockDown
+	// 	 * CoordinationBlock
+	// 	 * Neutralize
+	// 	 * Deaccelerate
+	// 	 * Snare
+	// 	 * Stagger
+	// 	 * Strike
+	// 	 * Neutralize
+	// 	 * Surge
+	// 	 * Suppress
+	// 	 *
 
 
-		public void SetOwner (IState owns)
-		{
-			Owner = owns;
-		}
+		// public void SetOwner (IState owns)
+		// {
+		// 	Owner = owns;
+		// }
 
 		/*
 		public void Add (IState state, IStatusEffect se)
