@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
-public class Monster : MonoBehaviour
+public class Ward : ActiveEntity
 {
     // Start is called before the first frame update
     void Start()

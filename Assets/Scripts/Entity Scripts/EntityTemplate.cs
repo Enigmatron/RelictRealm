@@ -5,90 +5,16 @@ using UnityEngine.Events;
 using System;
 
 
-namespace EntityType
-{
 
 
-    /*
-    //TODO replace with active entity
-    public abstract class MoveableEntity : ActiveEntity{
-        #region Variables
-        protected Transform charTrans;
-        protected Vector3 angleX;
-        protected Vector3 angleCamera;
-        protected Vector3 curr;
-        protected Vector3 MoveVector = Vector3.zero;
-        protected float currAcceleration;
-        public float gravity = 32.2F;
-        protected CharacterController controller;
-        protected float acclX;
-        protected float acclZ;
-    /*
-    public float accelerationCoeffX
-    {
-        get
-        {
-            return Mathf.Sqrt((Mathf.Pow((acclX) / 2, 3)));
-        }
-    }
-
-    public float accelerationCoeffZ
-    {
-        get
-        {
-            return Mathf.Sqrt((Mathf.Pow((acclZ) / 2, 3)));
-        }
-    }
-    float lastDirectionX = 1;
-    float lastDirectionZ = 1;
     
-    public float testmovespeed = 12;
-    public float testjumpspeed = 20;
-    public string backwardaxis = "Vertical";
-    #endregion
-
-        protected void Movement(Vector3 Movement)
-        {
-            //TODO Use The entity's profile
-            float movespeed = testmovespeed;
-            float jumpspeed = testjumpspeed;
-            float backwardMovement = Input.GetAxisRaw(backwardaxis) == -1f ? 0.4f : 1f;
-
-            //side to side movement
-            MoveVector.x = Movement.x * backwardMovement * movespeed;
-            //forward back movement
-            MoveVector.z = Movement.z * backwardMovement* movespeed;
-
-            if (controller.isGrounded)
-            {
-                if (Movement.y > 0)
-                {
-                    MoveVector.y =
-                    jumpspeed;
-                }
-            }
-            if (!controller.isGrounded)
-            {
-                MoveVector.x *= 0.85f;
-                MoveVector.z *= 0.85f;
-            }
-
-
-
-            MoveVector.y -= gravity * Time.deltaTime;
-            MoveVector = transform.TransformVector(MoveVector);
-            //TODO replace character controller
-            controller.Move(MoveVector * Time.deltaTime);
-        }
-    }
-*/
-    public abstract class ActiveEntity : MonoBehaviour
+    public abstract class ActiveEntity : Entity
     {
         public enum TeamValue
         {
-            Team1,
-            Team2,
-            Team3,
+            Player1,
+            Player2,
+            Neutral,
         }
         #region Variables
         TeamValue team;
@@ -107,7 +33,7 @@ namespace EntityType
         protected float acclZ;
         protected void Movement(Vector3 Movement)
         {
-            //TODO Use The entity's profile
+            //TODO: Use The entity's profile
             float movespeed = testmovespeed;
             float jumpspeed = testjumpspeed;
             float backwardMovement = Input.GetAxisRaw(backwardaxis) == -1f ? 0.4f : 1f;
@@ -163,8 +89,35 @@ namespace EntityType
         }
 
         #region EntityDetection
+
+        //TODO: add the combat timer: a timer that resets on damage taken; the section is gonna be indeterminant for now;
         SphereCollider EnemySphere;
-        public bool Near_Enemy
+        public bool NearVisibleEnemy
+        {
+            get;
+            protected set;
+        }
+        public bool NearEnemy
+        {
+            get;
+            protected set;
+        }
+        public bool NearVisibleAlly
+        {
+            get;
+            protected set;
+        }
+        public bool NearAlly
+        {
+            get;
+            protected set;
+        }
+        public bool NearVisibleNeutral
+        {
+            get;
+            protected set;
+        }
+        public bool NearNeutral
         {
             get;
             protected set;
@@ -174,7 +127,7 @@ namespace EntityType
         {
             get
             {
-                return Near_Enemy || Damage_Timer.Finished;
+                return NearEnemy || Damage_Timer.Finished;
             }
         }
 
@@ -208,7 +161,7 @@ namespace EntityType
         //ActiveEntity is the subject of the event;
         //The events need to decern what teamvalue the entity has
         //the 
-        UnityEvent<List<Pair<int, ActiveEntity>>> EntityDetectionEvents;
+        UnityEvent<Dictionary<ActiveEntity, int>> EntityDetectionEvents;
 
         /*
         // public UnityEvent<List<ActiveEntity>> onCombatEvent { get; protected set; }
@@ -228,16 +181,26 @@ namespace EntityType
 
         //uses the same flag as EntityDectionEvents
         //the flag can tell you if the entity is in vision
-        public Dictionary<ActiveEntity, int> nearEntities;
+        //these are kept seperate as to maintain the isnearvariable for both to quickly get out of combat
+        public Dictionary<ActiveEntity, int> nearAllies;
+        //neutral is
+        public Dictionary<ActiveEntity, int> nearEnemies;
+        public Dictionary<ActiveEntity, int> nearNeutrals;
+
 
         public bool isEntityAlly(ActiveEntity other)
         {
-            return false;
+            return other.team == team;
         }
         public bool isEntityEnemy(ActiveEntity other)
         {
-            return true;
+            return other.team != team && other.team != TeamValue.Neutral;
         }
+        public bool isEntityNeutral(ActiveEntity other)
+        {
+            return other.team == TeamValue.Neutral;
+        }
+
 
         //TODO: has to be called on fixed update
         public void EntityDectionEventCall()
@@ -245,8 +208,9 @@ namespace EntityType
 
         }
 
-        //TODO
-        public bool entityVisionCalc(ActiveEntity other){
+        //TODO: write the code, use ray cast and check the head, upper legs, and body and return tru if any are 'seen'
+        public bool entityVisionCalc(ActiveEntity other)
+        {
             return true;
         }
 
@@ -258,7 +222,21 @@ namespace EntityType
             ActiveEntity ent = other.GetComponent<ActiveEntity>();
             if (ent != null)
             {
-                nearEntities.Add(ent,(int)EntityDetectionFlags.onEnter);
+                if (isEntityEnemy(ent))
+                {
+                    nearEnemies.Add(ent, (int)EntityDetectionFlags.onEnter);
+                    NearEnemy = true;
+                }
+                if (isEntityAlly(ent))
+                {
+                    nearAllies.Add(ent, (int)EntityDetectionFlags.onEnter);
+                    NearAlly = true;
+                }
+                if (isEntityNeutral(ent))
+                {
+                    nearNeutrals.Add(ent, (int)EntityDetectionFlags.onEnter);
+                    NearNeutral = true;
+                }
             }
         }
 
@@ -268,10 +246,25 @@ namespace EntityType
             ActiveEntity ent = other.GetComponent<ActiveEntity>();
             if (ent != null)
             {
-                //TODO add the appropriate flag
-                nearEntities[ent] = MathLambda.FlagOn(nearEntities[ent],(int)EntityDetectionFlags.onExit);
-                nearEntities[ent] = MathLambda.FlagOff(nearEntities[ent],(int)EntityDetectionFlags.OnVisionStay);
-                nearEntities[ent] = MathLambda.FlagOn(nearEntities[ent],(int)EntityDetectionFlags.OnOutVision);
+                //TODO: add the appropriate flag
+                if (isEntityAlly(ent))
+                {
+                    nearAllies[ent] = MathLambda.FlagOn(nearAllies[ent], (int)EntityDetectionFlags.onExit);
+                    nearAllies[ent] = MathLambda.FlagOff(nearAllies[ent], (int)EntityDetectionFlags.OnVisionStay);
+                    nearAllies[ent] = MathLambda.FlagOn(nearAllies[ent], (int)EntityDetectionFlags.OnOutVision);
+                }
+                if (isEntityEnemy(ent))
+                {
+                    nearEnemies[ent] = MathLambda.FlagOn(nearEnemies[ent], (int)EntityDetectionFlags.onExit);
+                    nearEnemies[ent] = MathLambda.FlagOff(nearEnemies[ent], (int)EntityDetectionFlags.OnVisionStay);
+                    nearEnemies[ent] = MathLambda.FlagOn(nearEnemies[ent], (int)EntityDetectionFlags.OnOutVision);
+                }
+                if (isEntityNeutral(ent))
+                {
+                    nearNeutrals[ent] = MathLambda.FlagOn(nearNeutrals[ent], (int)EntityDetectionFlags.onExit);
+                    nearNeutrals[ent] = MathLambda.FlagOff(nearNeutrals[ent], (int)EntityDetectionFlags.OnVisionStay);
+                    nearNeutrals[ent] = MathLambda.FlagOn(nearNeutrals[ent], (int)EntityDetectionFlags.OnOutVision);
+                }
                 //add code for calc vision;
             }
         }
@@ -281,13 +274,34 @@ namespace EntityType
             ActiveEntity ent = other.GetComponent<ActiveEntity>();
             if (ent != null)
             {
-                nearEntities[ent] = MathLambda.FlagOn(nearEntities[ent],(int)EntityDetectionFlags.onStay);
-
-                if(entityVisionCalc(ent)){
-                    nearEntities[ent] = MathLambda.FlagOn(nearEntities[ent],(int)EntityDetectionFlags.OnVisionStay);
+                if (isEntityAlly(ent))
+                {
+                    nearAllies[ent] = MathLambda.FlagOn(nearAllies[ent], (int)EntityDetectionFlags.onStay);
                 }
-                //add code for calc vision and update;
+                if (isEntityEnemy(ent))
+                {
+                    nearEnemies[ent] = MathLambda.FlagOn(nearEnemies[ent], (int)EntityDetectionFlags.onStay);
+                }
+                if (isEntityNeutral(ent))
+                {
+                    nearNeutrals[ent] = MathLambda.FlagOn(nearNeutrals[ent], (int)EntityDetectionFlags.onStay);
+                }
 
+                if (entityVisionCalc(ent))
+                {
+                    if (isEntityAlly(ent))
+                    {
+                        nearAllies[ent] = MathLambda.FlagOn(nearAllies[ent], (int)EntityDetectionFlags.OnVisionStay);
+                    }
+                    if (isEntityEnemy(ent))
+                    {
+                        nearEnemies[ent] = MathLambda.FlagOn(nearEnemies[ent], (int)EntityDetectionFlags.OnVisionStay);
+                    }
+                    if (isEntityNeutral(ent))
+                    {
+                        nearNeutrals[ent] = MathLambda.FlagOn(nearNeutrals[ent], (int)EntityDetectionFlags.OnVisionStay);
+                    }
+                }
             }
         }
 
@@ -316,10 +330,9 @@ namespace EntityType
         }
 
         #region Damage System
-        Animation onDamageAnim;
-        Animation onDeathAnim;
-        UnityEvent onDeathEvent;
-        UnityEvent onDamageEvent;
+       
+
+
         #endregion
 
         EntityRegisterProfile Stats;
@@ -327,7 +340,7 @@ namespace EntityType
         EntityRegisterProfile Buff;
         EntityRegisterProfile CC;
     }
-    public abstract class PassiveEntity : MonoBehaviour
+    public abstract class PassiveEntity : Entity
     {
         //how many hits till it dies;
         int hitcount;
@@ -336,15 +349,15 @@ namespace EntityType
         //the physics involved in the system
         Rigidbody physics;
 
-        Animation OnHitAnimationAnim;
-        Animation OnDestructionAnimationAnim;
-        UnityEvent onDeathEvent;
-        UnityEvent onDamageEvent;
+        
 
 
 
     }
 
-
-
-}
+    public abstract class Entity : MonoBehaviour{
+        Animation onDamageAnim;
+        Animation onDeathAnim;
+        UnityEvent onDeathEvent;
+        UnityEvent onDamageEvent;
+    }

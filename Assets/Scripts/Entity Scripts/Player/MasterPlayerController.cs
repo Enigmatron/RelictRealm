@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
-using EntityType;
 
 //TODO
 //Add Step_Movement Compatibility
