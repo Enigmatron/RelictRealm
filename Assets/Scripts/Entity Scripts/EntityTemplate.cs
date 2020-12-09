@@ -409,15 +409,15 @@ public abstract partial class ActiveEntity : Entity
     {
         OnEntityEnter(other);
     }
-    protected virtual void OnTriggerExit(Collider other)
-    {
-        OnEntityExit(other);
-    }
+    
     protected virtual void OnTriggerStay(Collider other)
     {
         OnEnemyStay(other);
     }
-
+    protected virtual void OnTriggerExit(Collider other)
+    {
+        OnEntityExit(other);
+    }
 
     protected virtual void OnCollisionEnter(Collision collisionInfo)
     {
