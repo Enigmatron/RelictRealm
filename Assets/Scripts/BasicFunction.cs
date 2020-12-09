@@ -28,7 +28,10 @@ public static class MathLambda
         // the k'th bit 
         return (val & ~(1 << (flag - 1))); 
 	}
-	//
+	public static bool FlagCheck (int value, int flag)
+	{
+		return (flag & value) == flag;
+	}	//
 	public static int AddTillEqualTo (int value, int Add, int Max)
 	{
 		value += Add;
@@ -101,10 +104,7 @@ public static class MathLambda
 
 
 
-	public static bool FlagBool (int Flag, int Value)
-	{
-		return (Flag & Value) == Value;
-	}
+	
 }
 
 
