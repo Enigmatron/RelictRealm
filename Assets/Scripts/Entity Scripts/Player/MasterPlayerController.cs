@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
-using ItemSystem;
 using EntityType;
 
 //TODO
@@ -70,32 +69,7 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
         }
     }
 
-    public bool Near_Enemy
-    {
-        get
-        {
-            return true;
-        }
-    }
-
-    public bool Combat
-    {
-        get
-        {
-            return Near_Enemy || Damage_Timer.Finished;
-        }
-    }
-
-    //this is for the out of combat system
-    ProgressionStateMachine damage_timer;
-
-    public ProgressionStateMachine Damage_Timer
-    {
-        get
-        {
-            return damage_timer;
-        }
-    }
+    
 
 
     
@@ -186,8 +160,9 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
     /// <summary>
     /// Awakens this instance.
     /// </summary>
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         //		state = GetComponentInParent<SovereignState> ();
 
         thirdCamera = GetComponentInChildren<Camera>();
@@ -214,13 +189,15 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
     }
 
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         controller = GetComponent<CharacterController>();
         charTrans = transform.GetChild(0);
     }
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         PlayerInputControl();
@@ -228,12 +205,13 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
             Input.GetAxisRaw("Horizontal"), Input.GetButtonDown("Jump")?1.0f: 0.0f, Input.GetAxisRaw("Vertical")
             ));
     }
-    void FixedUpdate()
+    protected override void FixedUpdate()
     {
-        
+        base.FixedUpdate();
     }
-    void LateUpdate()
+    protected override void LateUpdate()
     {
+        base.LateUpdate();
         angleX = new Vector3(0, Input.GetAxis("Mouse X") * 3f, 0);
         transform.eulerAngles += angleX;
 
