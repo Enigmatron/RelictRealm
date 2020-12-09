@@ -14,7 +14,8 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
     #region variables
 
     
-
+    protected Transform charTrans;
+    protected Vector3 angleX;
     private bool showInventory = false;
     private bool showOptions = false;
     private Rect windowRect = new Rect(Screen.width / 3, 0, Screen.width / 3, Screen.width / 4);

@@ -5,9 +5,29 @@ using System.Collections;
 
 
 //This class is a static class that houses basic math functions
+public class Pair<T,U>{
+	public T left{get; set;}
+	public U right{get; set;}
+
+}
 public static class MathLambda
 {
-
+	public static int FlagOn(int val, int flag){
+		if (flag <= 0) 
+        	return val; 
+  
+    // Do | of n with a number with all  
+    // unset bits except the k'th bit 
+    	return (val | (1 << (flag - 1))); 
+	}
+	public static int FlagOff(int val, int flag){
+		if (flag <= 0)  
+            return val; 
+   
+        // Do & of n with a number with all set bits except 
+        // the k'th bit 
+        return (val & ~(1 << (flag - 1))); 
+	}
 	//
 	public static int AddTillEqualTo (int value, int Add, int Max)
 	{
