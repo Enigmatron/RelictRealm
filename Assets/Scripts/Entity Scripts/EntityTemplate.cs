@@ -53,6 +53,7 @@ using System;
             }
             if (!controller.isGrounded)
             {
+                //TODO: add logic so that top speed can't be made but it can be kept while in air, so that you get limited air control
                 MoveVector.x *= 0.85f;
                 MoveVector.z *= 0.85f;
             }
@@ -356,8 +357,20 @@ using System;
     }
 
     public abstract class Entity : MonoBehaviour{
+        //TODO: add base stats here like shield and hp;
+
+
+
+        //remove these as they can be placed in the registerProfile
         Animation onDamageAnim;
         Animation onDeathAnim;
         UnityEvent onDeathEvent;
         UnityEvent onDamageEvent;
+
+        //damage queue can be cleared to allow a frame of invincibility on Shell break
+        Queue<Damage> damageQueue;
+
+
+        //TODO: add a thing so that DOTs can persist thru shells, NVM actually explanation in OneNote
+        //List<DamageSources> DamageSources;
     }

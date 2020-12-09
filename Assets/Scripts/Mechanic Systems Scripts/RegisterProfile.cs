@@ -7,7 +7,7 @@ using UnityEngine;
 /// <Summary>
 /// this class manages values such as health stats and so on
 /// <Summary>
-public class EntityRegisterProfile
+public class RegisterProfile
 {
     ////implement variable enum to remove the need for strings to hold variable name
     // public enum Variables{
