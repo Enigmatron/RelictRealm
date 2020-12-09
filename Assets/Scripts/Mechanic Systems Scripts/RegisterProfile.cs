@@ -56,13 +56,13 @@ public class RegisterProfile
     public static Builder Initialize()
     {
         Builder temp = new Builder();
-        temp.obj = new EntityRegisterProfile();
+        temp.obj = new RegisterProfile();
         return temp;
     }
 
     public class Builder
     {
-        public EntityRegisterProfile obj;
+        public RegisterProfile obj;
 
 
         public Builder Define_Base_Value(float val)
@@ -76,7 +76,7 @@ public class RegisterProfile
             obj.BaseValue = val;
             return this;
         }
-        public EntityRegisterProfile Declare()
+        public RegisterProfile Declare()
         {
             obj.addedValue = new Dictionary<string, Dictionary<string, RegisterValue>>();
             return obj;

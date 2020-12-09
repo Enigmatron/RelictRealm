@@ -8,7 +8,7 @@ using System;
 
 
     
-    public abstract class ActiveEntity : Entity
+    public abstract partial class ActiveEntity : Entity
     {
         public enum TeamValue
         {
@@ -336,12 +336,12 @@ using System;
 
         #endregion
 
-        EntityRegisterProfile Stats;
-        EntityRegisterProfile Status;
-        EntityRegisterProfile Buff;
-        EntityRegisterProfile CC;
+        RegisterProfile Stats;
+        RegisterProfile Status;
+        RegisterProfile Buff;
+        RegisterProfile CC;
     }
-    public abstract class PassiveEntity : Entity
+    public abstract partial class PassiveEntity : Entity
     {
         //how many hits till it dies;
         int hitcount;
@@ -356,17 +356,11 @@ using System;
 
     }
 
-    public abstract class Entity : MonoBehaviour{
+    public abstract partial class Entity : MonoBehaviour{
         //TODO: add base stats here like shield and hp;
 
 
-
-        //remove these as they can be placed in the registerProfile
-        Animation onDamageAnim;
-        Animation onDeathAnim;
-        UnityEvent onDeathEvent;
-        UnityEvent onDamageEvent;
-
+        RegisterProfile Status;
         //damage queue can be cleared to allow a frame of invincibility on Shell break
         Queue<Damage> damageQueue;
 
