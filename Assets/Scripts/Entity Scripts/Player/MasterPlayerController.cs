@@ -22,7 +22,7 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
     //
 
 
-
+    #region Targetting Info
     //TODO
     //make targetter component
     public Ray TargetCast
@@ -32,7 +32,21 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
             return thirdCamera.ScreenPointToRay(Input.mousePosition);
         }
     }
+    public Vector3 TargetDirection{
+        get{
+            return TargetCast.direction;
+        }
+    }
 
+    //TODO: get the target cast hit
+    // public Transform TargetCastHit{
+    //     get{
+    //         return TargetCast.
+    //     }
+    //      set;
+    // }
+
+    #endregion
     public Camera thirdCamera = null;
 
     public Camera ThirdPersonCamera
