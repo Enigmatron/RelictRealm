@@ -39,9 +39,9 @@ using System;
             float backwardMovement = Input.GetAxisRaw(backwardaxis) == -1f ? 0.4f : 1f;
 
             //side to side movement
-            MoveVector.x = Movement.x * backwardMovement * movespeed;
+            MoveVector.x = Movement.x * movespeed;
             //forward back movement
-            MoveVector.z = Movement.z * backwardMovement * movespeed;
+            MoveVector.z = Movement.z * movespeed;
 
             if (controller.isGrounded)
             {
