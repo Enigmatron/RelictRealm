@@ -15,15 +15,13 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
     
     protected Transform charTrans;
     protected Vector3 angleX;
-    private bool showInventory = false;
-    private bool showOptions = false;
-    private Rect windowRect = new Rect(Screen.width / 3, 0, Screen.width / 3, Screen.width / 4);
+    
     string win1ToolTip;
     //
 
 
     #region Targetting Info
-    //TODO
+    //TODO: use this ray to get a raycast for further computation https://docs.unity3d.com/ScriptReference/Physics.Raycast.html
     //make targetter component
     public Ray TargetCast
     {
@@ -32,6 +30,8 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
             return thirdCamera.ScreenPointToRay(Input.mousePosition);
         }
     }
+
+    //gets the direction of the target cast
     public Vector3 TargetDirection{
         get{
             return TargetCast.direction;
@@ -68,6 +68,31 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
     /// <summary>
     /// Player's input control. remove the controls for the gui and move it to another
     /// </summary>
+    
+
+
+    
+    /// <summary>
+    /// GUI Controls for the player, this does not belong in this class as it would be applicable on other screens without the player.
+    /// </summary>
+    #region GUI controls
+    private bool showInventory = false;
+    private bool showOptions = false;
+    private Rect windowRect = new Rect(Screen.width / 3, 0, Screen.width / 3, Screen.width / 4);
+
+    /// <summary>
+    /// Raises the GU event.
+    /// </summary>
+    void OnGUI()
+    {
+        if (showInventory)
+            GUI.Box(new Rect(Screen.width / 4, 0, Screen.width / 2, Screen.height / 2.5f), "");
+
+        if (showOptions)
+        {
+            windowRect = GUILayout.Window(1, windowRect, DoMyWindow, "Option Windows");
+        }
+    }
     void PlayerInputControl()
     {
 
@@ -98,27 +123,6 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
         {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
-        }
-    }
-
-
-    
-    /// <summary>
-    /// GUI Controls for the player, this does not belong in this class as it would be applicable on other screens without the player.
-    /// </summary>
-    #region GUI controls
-
-    /// <summary>
-    /// Raises the GU event.
-    /// </summary>
-    void OnGUI()
-    {
-        if (showInventory)
-            GUI.Box(new Rect(Screen.width / 4, 0, Screen.width / 2, Screen.height / 2.5f), "");
-
-        if (showOptions)
-        {
-            windowRect = GUILayout.Window(1, windowRect, DoMyWindow, "Option Windows");
         }
     }
     //
