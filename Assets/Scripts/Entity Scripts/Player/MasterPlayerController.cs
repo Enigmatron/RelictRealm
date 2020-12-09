@@ -47,31 +47,6 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
                 thirdCamera = value;
         }
     }
-
-    //
-    RaycastHit hit;
-
-    public RaycastHit Hit
-    {
-        get
-        {
-            return hit;
-        }
-    }
-    //
-    RaycastHit[] hits;
-
-    public RaycastHit[] Hits
-    {
-        get
-        {
-            return hits;
-        }
-    }
-
-    
-
-
     
 
     #endregion
@@ -163,32 +138,8 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
     protected override void Awake()
     {
         base.Awake();
-        //		state = GetComponentInParent<SovereignState> ();
-
         thirdCamera = GetComponentInChildren<Camera>();
-        //		Network.InitializeServer(8, 25000, false);
-
     }
-
-    // void OnNetworkInstantiate (NetworkMessageInfo info)
-    // {
-
-    // 	Debug.Log ("New object instanted by me");
-
-    // }
-
-    //	public override void OnStartLocalPlayer ()
-    //	{
-    //		gameObject.SetActive (true);
-    //	}
-
-
-    void OnConnectedToServer()
-    {
-        //Network.Instantiate (gameObject, transform.position, transform.rotation, 0);
-    }
-
-
     protected override void Start()
     {
         base.Start();
