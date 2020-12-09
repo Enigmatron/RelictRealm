@@ -70,16 +70,6 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
         }
     }
 
-
-
-
-    //public float? TargetRaycastAllDistance;
-    //	RaycastHit[] TargetRaycastALL{
-    //		get{
-    //			return Physics.RaycastAll(thirdCamera.ScreenPointToRay(Input.mousePosition), TargetRaycastAllDistance);
-    //		}
-    //	}
-    //
     public bool Near_Enemy
     {
         get
@@ -111,15 +101,6 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
     
 
     #endregion
-
-    /// <summary>
-    /// Movement for this entities. need to move it to an abstract class to implement AI capabilities; moved to entitytemplate
-    /// </summary>
-    // #region movement control
-
-
-
-
 
     /// <summary>
     /// Player's input control. remove the controls for the gui and move it to another
@@ -232,21 +213,14 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
         //Network.Instantiate (gameObject, transform.position, transform.rotation, 0);
     }
 
-    /// <summary>
-    /// Start this instance.
-    /// </summary>
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
         charTrans = transform.GetChild(0);
     }
-
-    /// <summary>
-    /// Update this instance.
-    /// </summary>
     void Update()
     {
-        // expJump();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         PlayerInputControl();
@@ -254,18 +228,12 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
             Input.GetAxisRaw("Horizontal"), Input.GetButtonDown("Jump")?1.0f: 0.0f, Input.GetAxisRaw("Vertical")
             ));
     }
-
-
     void FixedUpdate()
     {
         
     }
-
-    // Update is called once per frame
     void LateUpdate()
     {
-        
-        //TODO move this to another method: camera rotation controlls
         angleX = new Vector3(0, Input.GetAxis("Mouse X") * 3f, 0);
         transform.eulerAngles += angleX;
 
