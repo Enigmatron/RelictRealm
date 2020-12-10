@@ -364,7 +364,6 @@ public abstract partial class ActiveEntity : Entity
                     }
                 }
             }
-            //add code for calc vision;
         }
     }
 
@@ -440,7 +439,6 @@ public abstract partial class ActiveEntity : Entity
     #endregion
 
     RegisterProfile Stats;
-    RegisterProfile Status;
     RegisterProfile Buff;
     RegisterProfile CC;
 }
@@ -464,7 +462,7 @@ public abstract partial class Entity : MonoBehaviour
     //TODO: add base stats here like shield and hp;
 
 
-    RegisterProfile Status;
+    RegisterProfile Stats;
     //damage queue can be cleared to allow a frame of invincibility on Shell break
     Queue<Damage> damageQueue;
 
