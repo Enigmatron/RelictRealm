@@ -81,11 +81,6 @@ public abstract partial class ActiveEntity : Entity
 
     }
 
-    #region Damage System
-
-
-
-    #endregion
 
     RegisterProfile Stats;
     RegisterProfile Buff;

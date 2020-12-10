@@ -85,22 +85,6 @@ public abstract partial class ActiveEntity
     //holds a list of methods that check the team value and flag within the UnityAction for these UnityEvents
     List<UnityEvent<Dictionary<ActiveEntity, int>>> EntityDetectionEvents;
 
-    /* leaving this here to hellp me remember what events need to happen
-    // public UnityEvent<List<ActiveEntity>> onCombatEvent { get; protected set; }
-    // public UnityEvent<List<ActiveEntity>> onEnemyTriggerEnter { get; protected set; }
-    // public UnityEvent<List<ActiveEntity>> onAllyTriggerEnter { get; protected set; }
-
-    // public UnityEvent<List<ActiveEntity>> onEnemyTriggerExit { get; protected set; }
-    // public UnityEvent<List<ActiveEntity>> onAllyTriggerExit { get; protected set; }
-    // public UnityEvent<List<ActiveEntity>> onEnemyInVision { get; protected set; }
-    // public UnityEvent<List<ActiveEntity>> onAllyInVision { get; protected set; }
-    // public UnityEvent<List<ActiveEntity>> onEnemyOutVision { get; protected set; }
-    // public UnityEvent<List<ActiveEntity>> onAllyOutVision { get; protected set; }
-
-    // public UnityEvent<List<ActiveEntity>> onOutOfCombat { get; protected set; }
-    */
-
-
     //uses the same flag as EntityDectionEvents
     //the flag can tell you if the entity is in vision
     //these are kept seperate as to maintain the isnearvariable for both to quickly get out of combat
