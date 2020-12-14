@@ -131,37 +131,3 @@ public class RegisterValue{//TODO make this a generic class that looks for regis
 
 
 
-//Just a simple timer that has its Value tracked
-public class Timer
-{
-    RegisterValue value;
-	float maxTime;
-	float lastCheckIn;
-    public int Flags;
-	public void Reset ()
-	{
-        value.reset();
-    }
-    public void Update()
-	{
-        if (maxTime <= value.value){
-			return;
-		}
-		else{
-			value.setValue(Time.deltaTime);
-		}
-
-    }
-
-
-
-    public class Builder{
-        Timer obj;
-
-		public Builder(){
-			obj = new Timer();
-		}
-
-
-	}
-}
