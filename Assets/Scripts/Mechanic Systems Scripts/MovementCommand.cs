@@ -5,6 +5,7 @@ using UnityEngine;
 /// <summary>
 /// a system meant to force a movement for a character with options such as direction/target, force. this also has dynamic end conditions and a miniature state condition; removes character control
 /// </summary>
+//TODO: make is so it automatically locks movement
 public class MovementCommand
 {
     //TODO make a builder
