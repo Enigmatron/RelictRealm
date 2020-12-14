@@ -8,7 +8,7 @@ using System;
 
 
 
-public abstract partial class ActiveEntity : Entity
+public abstract class ActiveEntity : Entity
 {
     #region EntityDetection
 
@@ -164,17 +164,17 @@ public abstract partial class ActiveEntity : Entity
         {
             if (isEntityEnemy(ent))
             {
-                nearEnemies.Add(ent, (int)EntityDetectionFlag.onEnter);
+                nearEnemies[ent] = (int)EntityDetectionFlag.onEnter;
                 isNearEnemy = true;
             }
-            if (isEntityAlly(ent))
+            else if (isEntityAlly(ent))
             {
-                nearAllies.Add(ent, (int)EntityDetectionFlag.onEnter);
+                nearAllies[ent] = (int)EntityDetectionFlag.onEnter;
                 isNearAlly = true;
             }
-            if (isEntityNeutral(ent))
+            else if (isEntityNeutral(ent))
             {
-                nearNeutrals.Add(ent, (int)EntityDetectionFlag.onEnter);
+                nearNeutrals[ent] = (int)EntityDetectionFlag.onEnter;
                 isNearNeutral = true;
             }
         }
@@ -334,8 +334,8 @@ public abstract partial class ActiveEntity : Entity
     protected void Movement(Vector3 Movement, float movementspeed, float jumpstrength)
     {
         //TODO: Use The entity's profile
-        // float movespeed = testmovespeed;
-        // float jumpspeed = testjumpspeed;
+        float movespeed = testmovespeed;
+        float jumpspeed = testjumpspeed;
         float backwardMovement = Input.GetAxisRaw(backwardaxis) == -1f ? 0.4f : 1f;
 
         //side to side movement
@@ -348,7 +348,10 @@ public abstract partial class ActiveEntity : Entity
             if (Movement.y > 0)
             {
                 MoveVector.y =
+                jumpspeed;
+                MoveVector.y =
                 jumpstrength;
+
             }
         }
         if (!controller.isGrounded)
@@ -380,7 +383,10 @@ public abstract partial class ActiveEntity : Entity
 
     protected virtual void Awake()
     {
-
+        nearAllies = new Dictionary<ActiveEntity, int>();
+        nearEnemies = new Dictionary<ActiveEntity, int>();
+        nearNeutrals = new Dictionary<ActiveEntity, int>();
+        EntityDetectionEvents = new List<UnityEvent<Dictionary<ActiveEntity, int>>>();
     }
     protected virtual void Start()
     {
@@ -391,9 +397,13 @@ public abstract partial class ActiveEntity : Entity
     protected virtual void Update()
     {
         EntityDectionEventCall();
-        if (Input.GetKeyDown("G"))
+        if (Input.GetKeyDown(KeyCode.G))
         {
-            movementCommands.Add(new MovementCommand(Vector3.forward, 12, 0));
+            movementCommands.Add(new MovementCommand(Vector3.forward, 30, 0));
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            movementCommands.Clear();
         }
         if (movementCommands.Count > 0)
         {
@@ -439,8 +449,17 @@ public abstract partial class ActiveEntity : Entity
     {
 
     }
+    public ActiveEntity()
+    {
+        damageQueue = new Queue<DamageSource>();
+        movementCommands = new List<MovementCommand>();
+        nearAllies = new Dictionary<ActiveEntity, int>();
+        nearEnemies = new Dictionary<ActiveEntity, int>();
+        nearNeutrals = new Dictionary<ActiveEntity, int>();
+        EntityDetectionEvents = new List<UnityEvent<Dictionary<ActiveEntity, int>>>();
+    }
 }
-public abstract partial class PassiveEntity : Entity
+public abstract class PassiveEntity : Entity
 {
     
 
