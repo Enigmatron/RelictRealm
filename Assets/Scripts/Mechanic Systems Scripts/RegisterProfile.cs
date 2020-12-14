@@ -5,13 +5,15 @@ using UnityEngine;
 
 
 /// <Summary>
-/// This class manages a set of interdependent values that rely on a max and minimum value and can take additional values to its current value
+/// This class is meant to have all registers update if one updates
 /// <Summary>
 //TODO: it may make it easier to work with if other systems make the dictionary for these values rather than it being baked into the register profile: make it a "managed profile"
 public class RegisterStatProfile <Key>
 {
     public Dictionary<Key, RegisterStat> profile;
 
+
+    //TODO: add interdependency updating 
     
 
     //name is the value that it adds to 
@@ -32,7 +34,7 @@ public class RegisterStatProfile <Key>
     }
 
 
-    //TODO: 
+    //TODO: make it so that once you've gotten every builder done then its done.
     public class Builder
     {
         public RegisterStatProfile<Key> obj;

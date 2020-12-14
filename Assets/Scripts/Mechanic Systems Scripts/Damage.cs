@@ -4,15 +4,15 @@ using System.Collections;
 
 
 
-public class Damage
+public class DamageSource
 {
 	
-	public string Name;
+	public string DamageSourceName;
 
 	//should hold a reference to the damager and not a string
-	public string Dealer;
-	public int DamageEquation;
-
+	public Entity entity;
+	public delegate float DamageEquation(Entity entity);
+	DamageEquation damageEQ;
 	struct DamagePayload{
 		public int damage;
 		public string Name;
@@ -25,48 +25,10 @@ public class Damage
 
 
 	//should hold a reference to the damager and not a string
-	public Damage (string name, string dealer, int totalDamage)
+	public DamageSource (string name, ref DamageEquation eq, Entity ent) 
 	{
-		Name = name; 
-		Dealer = dealer;
-		DamageEquation = totalDamage;
+		DamageSourceName = name;
+		damageEQ = eq;
+		entity = ent;
 	}
 }
-
-
-
-#region Depreciated Code
-/*
-	public class Profile
-	{
-		
-		public delegate int CustomValue (EntityState dealer, EntityState receiever);
-
-		private CustomValue Value;
-		string Name;
-		//	Return_Int value;
-		EntityState Dealer;
-		//	IDamageable Receiver;
-
-		//	private Value_Int Ints;
-
-		public Return Return (EntityState reciever)
-		{
-			return new Return (Name, Dealer, Value (Dealer, reciever));
-		}
-
-		//	public Return_Int (Value_Int val)
-		//	{
-		//		Ints = val;
-		//	}
-
-		public Profile (string name, EntityState dealer, CustomValue intVal)
-		{
-			Name = name;
-			Dealer = dealer;
-			Value = new CustomValue (intVal);
-		}
-	}
-*/
-
-#endregion
