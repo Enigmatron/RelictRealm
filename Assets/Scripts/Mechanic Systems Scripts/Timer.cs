@@ -5,7 +5,7 @@ using UnityEngine;
 //Just a simple timer that has its Value tracked
 public class Timer
 {
-    RegisterValue value;
+    Register value;
     float maxTime;
     public void Reset()
     {

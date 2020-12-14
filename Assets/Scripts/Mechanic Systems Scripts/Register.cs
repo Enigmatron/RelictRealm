@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 
 //A class for a value that you can change and has events attached to it for when its changed, this can be interpreted as a float or bool
-public class RegisterValue{//TODO make this a generic class that looks for register_value_manager class that manages a data type (boolean, vector, movecommand, float); maybe all values are derivative of floats so its fine
+public class Register{//TODO make this a generic class that looks for register_value_manager class that manages a data type (boolean, vector, movecommand, float); maybe all values are derivative of floats so its fine
 
 	#region methods
 	//This method manages observer calls and updates the value of the stack
@@ -85,12 +85,12 @@ public class RegisterValue{//TODO make this a generic class that looks for regis
 		return builder;
 	}
 	public class Builder{
-		private RegisterValue obj = new RegisterValue();
+		private Register obj = new Register();
 		public static Builder initialize(){
 			Builder builder = new Builder();
 			return builder;
 		}
-		public RegisterValue build(){
+		public Register build(){
 			return obj;
 		}
 		public Builder add_OnChange(UnityAction<float> val){

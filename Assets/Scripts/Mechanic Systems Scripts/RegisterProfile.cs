@@ -5,44 +5,57 @@ using UnityEngine;
 
 
 /// <Summary>
-/// this class manages values such as health stats and so on
+/// This class manages a set of interdependent values that rely on a max and minimum value and can take additional values to its current value
 /// <Summary>
+//TODO: it may make it easier to work with if other systems make the dictionary for these values rather than it being baked into the register profile: make it a "managed profile"
 public class RegisterProfile <Key>
 {
-    public Dictionary<Key, RegisterValue> valuePairs;
+    public Dictionary<Key, Register> valuePairs;
 
+    //the base base value that is added to in the current value by the addedvalue list
     public float BaseValue;
-    public Dictionary<Key, Dictionary<string, RegisterValue>> addedValue;
-    public Dictionary<Key, float> MaxValue;
-
-    public Dictionary<Key, float> CurrentValue{
+    public Dictionary<Key, float> CurrentValue
+    {
         get; private set;
     }
+    public Dictionary<Key, Dictionary<string, Register>> addedValue;
+    public Dictionary<Key, float> MaxValue;
+
+    
 
     //name is the value that it adds to 
-    public void addValue(Key variablename, string name, RegisterValue val){
+    public void addValue(Key variablename, string name, Register val){
         addedValue[variablename].Add(name, val);
 
         CurrentValue[variablename] = 0;
-        foreach(RegisterValue x in addedValue[variablename].Values){
+        foreach(Register x in addedValue[variablename].Values){
             CurrentValue[variablename] += x.value;
         }
+
         CurrentValue[variablename] += valuePairs[variablename].value;
-        CurrentValue[variablename] = CurrentValue[variablename] >= MaxValue[variablename] ? CurrentValue[variablename] : MaxValue[variablename];
+
+        if(CurrentValue[variablename] >= MaxValue[variablename]){
+            CurrentValue[variablename] = MaxValue[variablename];
+        }
+
+        
     }
 
     public void removeValue(Key variablename, string name){
         addedValue[variablename].Remove(name);
 
         CurrentValue[variablename] = 0;
-        foreach(RegisterValue x in addedValue[variablename].Values){
+        foreach(Register x in addedValue[variablename].Values){
             CurrentValue[variablename] += x.value;
         }
         CurrentValue[variablename] += valuePairs[variablename].value;
-        CurrentValue[variablename] = CurrentValue[variablename] >= MaxValue[variablename] ? CurrentValue[variablename] : MaxValue[variablename];
+        if (CurrentValue[variablename] >= MaxValue[variablename])
+        {
+            CurrentValue[variablename] = MaxValue[variablename];
+        }    
     }
 
-    
+
     public static Builder Initialize()
     {
         Builder temp = new Builder();
@@ -68,7 +81,7 @@ public class RegisterProfile <Key>
         }
         public RegisterProfile<Key> Declare()
         {
-            obj.addedValue = new Dictionary<Key, Dictionary<string, RegisterValue>>();
+            obj.addedValue = new Dictionary<Key, Dictionary<string, Register>>();
             return obj;
         }
     }
