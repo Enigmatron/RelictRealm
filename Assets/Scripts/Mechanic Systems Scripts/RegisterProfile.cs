@@ -43,7 +43,6 @@ public class RegisterProfile <Key>
     }
 
     
-
     public static Builder Initialize()
     {
         Builder temp = new Builder();
