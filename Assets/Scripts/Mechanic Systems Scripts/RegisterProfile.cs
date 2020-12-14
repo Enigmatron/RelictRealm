@@ -8,7 +8,7 @@ using UnityEngine;
 /// This class manages a set of interdependent values that rely on a max and minimum value and can take additional values to its current value
 /// <Summary>
 //TODO: it may make it easier to work with if other systems make the dictionary for these values rather than it being baked into the register profile: make it a "managed profile"
-public class RegisterProfile <Key>
+public class RegisterStatProfile <Key>
 {
     public Dictionary<Key, Register> valuePairs;
 
@@ -59,13 +59,13 @@ public class RegisterProfile <Key>
     public static Builder Initialize()
     {
         Builder temp = new Builder();
-        temp.obj = new RegisterProfile<Key>();
+        temp.obj = new RegisterStatProfile<Key>();
         return temp;
     }
 
     public class Builder
     {
-        public RegisterProfile<Key> obj;
+        public RegisterStatProfile<Key> obj;
 
 
         public Builder Define_Base_Value(float val)
@@ -79,7 +79,7 @@ public class RegisterProfile <Key>
             obj.BaseValue = val;
             return this;
         }
-        public RegisterProfile<Key> Declare()
+        public RegisterStatProfile<Key> Declare()
         {
             obj.addedValue = new Dictionary<Key, Dictionary<string, Register>>();
             return obj;
