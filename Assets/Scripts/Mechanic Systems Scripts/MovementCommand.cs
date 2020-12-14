@@ -28,6 +28,7 @@ public class MovementCommand
     public Transform TargetLocation;
 
     // my code utilizes acceleration values
+    //TODO use IRegister or something that ties this as a register/registerStat
     public float Acceleration;
 
     //
@@ -64,12 +65,12 @@ public class MovementCommand
     //
     public MovementCommand(Transform dir, float acc, float toTravel, bool over = false, bool pause = true)
     {
+        // SubjectLocation = null;
         Acceleration = acc;
         Direction = Vector3.zero;
         overrideMovement = over;
         DistanceToTravel = toTravel;
         DistanceTraveled = 0;
         TargetLocation = dir;
-        // SubjectLocation = null;
     }
 }

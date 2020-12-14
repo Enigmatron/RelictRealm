@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
+
+//RegisterProfile as it used to be was deemed to be inefficient for systems that only need one register value with a max and addedValue
+//TODO:make a interface or abstract class that connects register and registerstat together
+//TODO: make valuepair Usable
 public class RegisterStat
 {
     public Register valuePairs;
