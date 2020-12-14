@@ -7,40 +7,31 @@ using UnityEngine;
 /// <Summary>
 /// this class manages values such as health stats and so on
 /// <Summary>
-public class RegisterProfile
+public class RegisterProfile <Key>
 {
-    ////implement variable enum to remove the need for strings to hold variable name
-    // public enum Variables{
-    //     [field:Description("Health")]
-    //     Health,
-    //     Armor,
-    //     MoveSpeed,
-    //     JumpPower,
-        
-    // }
-    public Dictionary<string, RegisterValue> valuePairs;
+    public Dictionary<Key, RegisterValue> valuePairs;
 
     public float BaseValue;
-    public Dictionary<string, Dictionary<string, RegisterValue>> addedValue;
-    public Dictionary<string, float> MaxValue;
+    public Dictionary<Key, Dictionary<string, RegisterValue>> addedValue;
+    public Dictionary<Key, float> MaxValue;
 
-    public Dictionary<string, float> CurrentValue{
+    public Dictionary<Key, float> CurrentValue{
         get; private set;
     }
 
     //name is the value that it adds to 
-    public void addValue(string variablename, string name, RegisterValue val){
+    public void addValue(Key variablename, string name, RegisterValue val){
         addedValue[variablename].Add(name, val);
 
         CurrentValue[variablename] = 0;
-        foreach(RegisterValue x in addedValue[name].Values){
+        foreach(RegisterValue x in addedValue[variablename].Values){
             CurrentValue[variablename] += x.value;
         }
         CurrentValue[variablename] += valuePairs[variablename].value;
-        CurrentValue[variablename] = CurrentValue[variablename] >= MaxValue[variablename] ? CurrentValue[name] : MaxValue[variablename];
+        CurrentValue[variablename] = CurrentValue[variablename] >= MaxValue[variablename] ? CurrentValue[variablename] : MaxValue[variablename];
     }
 
-    public void removeValue(string variablename, string name){
+    public void removeValue(Key variablename, string name){
         addedValue[variablename].Remove(name);
 
         CurrentValue[variablename] = 0;
@@ -48,7 +39,7 @@ public class RegisterProfile
             CurrentValue[variablename] += x.value;
         }
         CurrentValue[variablename] += valuePairs[variablename].value;
-        CurrentValue[variablename] = CurrentValue[variablename] >= MaxValue[variablename] ? CurrentValue[name] : MaxValue[variablename];
+        CurrentValue[variablename] = CurrentValue[variablename] >= MaxValue[variablename] ? CurrentValue[variablename] : MaxValue[variablename];
     }
 
     
@@ -56,13 +47,13 @@ public class RegisterProfile
     public static Builder Initialize()
     {
         Builder temp = new Builder();
-        temp.obj = new RegisterProfile();
+        temp.obj = new RegisterProfile<Key>();
         return temp;
     }
 
     public class Builder
     {
-        public RegisterProfile obj;
+        public RegisterProfile<Key> obj;
 
 
         public Builder Define_Base_Value(float val)
@@ -76,9 +67,9 @@ public class RegisterProfile
             obj.BaseValue = val;
             return this;
         }
-        public RegisterProfile Declare()
+        public RegisterProfile<Key> Declare()
         {
-            obj.addedValue = new Dictionary<string, Dictionary<string, RegisterValue>>();
+            obj.addedValue = new Dictionary<Key, Dictionary<string, RegisterValue>>();
             return obj;
         }
     }

@@ -47,20 +47,21 @@ public abstract partial class ActiveEntity
     {
         get
         {
-            return isNearEnemy || Damage_Timer.Finished;
+            return isNearEnemy;
+            // || Damage_Timer.Finished;
         }
     }
 
     //this is for the out of combat system
-    ProgressionStateMachine damage_timer;
+    // Progressor damage_timer;
 
-    public ProgressionStateMachine Damage_Timer
-    {
-        get
-        {
-            return damage_timer;
-        }
-    }
+    // public Progressor Damage_Timer
+    // {
+    //     get
+    //     {
+    //         return damage_timer;
+    //     }
+    // }
 
     // Bit shift the index of the layer (8) to get a bit mask
     int layerMask = 1 << 8;

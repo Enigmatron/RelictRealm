@@ -37,6 +37,7 @@ public class RegisterValue{//TODO make this a generic class that looks for regis
 		OnReset.Invoke(value);
 		value = 0;
 	}
+	
 
 	public bool ValueAsBool(){
 		return value >= 0 ? true : false;  
@@ -196,298 +197,71 @@ public class MovementCommand
 	}
 }
 
+// public interface Timer{
+// 	public void Play ();
+// 	public void Reset();
+//     public void Stop();
+//     public void Update();
 
+// }
 
-//this system is a class for dynamic state changes. This class has a value that calls certain methods for the value as it updates, finishes, made updatable or not
-//this is intended for out of combat timers, energy resources, mana, ect.
-public class ProgressionStateMachine
+//Just a simple timer that has its Value tracked
+public class Timer
 {
-
-
-
-	//the maximum value for progression
-	public readonly float Maximum_Progress;
-
-	public RegisterValue Progress;
-	public float IntervalProgress;
-	//
-	// public Phase_Management onPhase;
-	//
-	public bool start, finish;
-
-	//
-	public bool Started {
-		get {
-			return start;
-		}
-	}
-	//
-	public bool Finished {
-		get {
-			return finish;
-		}
-	}
-
-	bool pause;
-
-	public bool Pauseable {
-		get {
-			return pause;
-		}
-	}
-
-	public void Play ()
-	{
-		// if (onPhase.onPlay != null) {
-		// 	onPhase.onPlay.Invoke ();
-		// }
-	}
-
+    RegisterValue value;
+	float maxTime;
+	float lastCheckIn;
+    public int Flags;
 	public void Reset ()
 	{
-		Progress.reset();
-		IntervalProgress = 0;
-		finish = false;
-	}
-
-	public void Complete ()
+        value.reset();
+    }
+    public void Update()
 	{
-		// if (onPhase.onCompletion != null) {
-		// 	onPhase.onCompletion.Invoke ();
-		// }
-		finish = false;
-		start = false;
-	}
+        if (maxTime <= value.value){
+			return;
+		}
+		else{
+			value.setValue(Time.deltaTime);
+		}
+
+    }
 
 
 
-
-	public void Refresh ()
-	{
-		// if (!finish && start) {
-		// 	if (Iterations > 0) {
-		// 		IntervalProgress += Time.deltaTime;
-		// 		Progress = BasicFunction.AddTillEqualTo (Progress, Time.deltaTime, Maximum_Progress);
-		// 		if (Progress != Maximum_Progress) {
-		// 			while (IntervalProgress >= Equal_Interval) {
-		// 				IntervalProgress -= Equal_Interval;
-		// 				if (onPhase.onRefresh != null)
-		// 					onPhase.onRefresh.Invoke ();
-		// 			}
-		// 		} else {
-		// 			Complete ();
-		// 		}
-
-		// 	} else {
-		// 		Progress += Time.deltaTime;
-		// 		if (Progress < Maximum_Progress) {
-		// 			if (onPhase.onRefresh != null) {
-		// 				onPhase.onRefresh.Invoke ();
-		// 			}
-		// 		} else if (Progress >= Maximum_Progress) {
-		// 			Complete ();
-		// 		}
-		// 	}
-		// }
-	}
-
-	public ProgressionStateMachine (){
-		start = false;
-		finish = false;
-		pause = true;
-		Maximum_Progress = 0;
-		// Iterations = 0;
-		// onPhase = null;
-		// Progress = null;
-		IntervalProgress = 0;
-	}
-
-	public class Builder{
-		// int Iteration;
-		float Max_Progress;
-		// Phase_Management Phases = new Phase_Management(null, null, null, null);
-		bool Pause;
-
-		// public void setIteration
+    public class Builder{
+        Timer obj;
 
 		public Builder(){
-
+			obj = new Timer();
 		}
+
 
 	}
 }
 
 
+// public class SimpleTimer{
 
 
 
-/*
-/// <summary>
-/// DOT.
-/// </summary>
-//public class DOT : Interim
-//{
-//
-//
-//		
-//	//
-//	public DamageProfile damage;
-//
-//	//
-//	public void Attach (IState state)
-//	{
-////		time = new Interim (shell);
-////		time.Play (state);
-//	}
-//
-//	public void Detach ()
-//	{
-//		
-//	}
-//	//
-//	public void Refresh ()
-//	{
-////		time.Refresh ();
-//	}
-//
-//	//
-//	//	public DOT (int iterations, float durations, DamageProfile dam)
-//	//	{
-//	////		shell = new Interim.Shell (durations, iterations, true, new Phase_Management ());
-//	//		damage = dam;
-//	//	}
-//}
-/*
-/// <summary>
-/// Collectible object.
-/// </summary>
-public class Collectible
+// }
+
+public class Resource
 {
-	public struct Shell
-	{
-		public float? Progress;
-		public int Heap;
-		public int Heap_Gain, Heap_Loss, Heap_Loss_On_Death;
-		public bool Refreshable;
-
-		public Shell (float? progress, int heap, int loss, int gain, int death, bool refresh)
-		{
-			Progress = progress;
-			Heap = heap;
-			Heap_Gain = gain;
-			Heap_Loss = loss;
-			Heap_Loss_On_Death = death;
-			Refreshable = refresh;
-		}
-	}
-	//
-	object id;
-
-	public object ID {
-		get {
-			return id;
-		}
-	}
-
-	bool pause;
-
-	public bool Pauseable {
-		get {
-			return pause;
-		}
-	}
-
-	//
-	public float? Maximum_Progress;
-	public float Progress;
-
-
-	public void Play (IState state)
-	{
+    public enum ResourceVariables
+    {
 
 	}
-
-	public void Refresh ()
-	{
-		if (Maximum_Progress != null) {
-			Progress = BasicFunction.AddTillEqualTo (Progress, Time.deltaTime, (float)Maximum_Progress);					
-		}
-	}
-	//
-	public int Maximum_Heap;
-	//
-	public int Heap;
-	//
-	public int Heap_Gain;
-	//
-	public int Heap_Loss;
-	//
-	public int Heap_Lost_On_Death;
-	//
-	public bool Refreshable;
+    RegisterProfile<ResourceVariables> profile;
 
 
 
-	//
-	public void Collect ()
-	{
-		Heap = BasicFunction.AddTillEqualTo (Heap, Heap_Gain, Maximum_Heap);
-		if (Refreshable)
-			Progress = 0;
-	}
-
-	public void Loss ()
-	{
-		Heap = BasicFunction.SubtractTillZero (Heap, Heap_Loss);
-	}
-
-	public void DeathLoss ()
-	{
-		Heap = BasicFunction.SubtractTillZero (Heap, Heap_Lost_On_Death);
-	}
-
-	public Collectible (string Id, float? duration, bool refresh = true, int stacks = 1, int gain = 1, int loss = 1, int lostDeath = 1)
-	{
-		id = Id;
-		Maximum_Progress = duration;
-		Maximum_Heap = stacks;
-		this.Progress = 0;
-		this.Heap = 0;
-		Heap_Gain = gain;
-		Heap_Loss = loss;
-		Heap_Lost_On_Death = lostDeath;
-		this.Refreshable = pause;
-	}
-
-	public Collectible (string Id, Shell shell)
-	{
-		id = Id;
-		Maximum_Progress = shell.Progress;
-		Maximum_Heap = shell.Heap;
-		this.Progress = 0;
-		this.Heap = 0;
-		Heap_Gain = shell.Heap_Gain;
-		Heap_Loss = shell.Heap_Loss;
-		Heap_Lost_On_Death = shell.Heap_Loss_On_Death;
-		this.Refreshable = shell.Refreshable;
-	}
-
-	public Collectible (Collectible copy)
-	{
-		id = copy.id;
-		Maximum_Progress = copy.Maximum_Progress;
-		Progress = copy.Progress;
-		Maximum_Heap = copy.Maximum_Heap;
-		Heap = copy.Heap;
-		this.Progress = copy.Progress;
-		this.Heap = copy.Heap;
-		Heap_Gain = copy.Heap_Gain;
-		Heap_Loss = copy.Heap_Loss;
-		Heap_Lost_On_Death = copy.Heap_Lost_On_Death;
-	}
 
 }
-*/
+
+
+
 /*
 /// <summary>
 /// Progressor: an object that counts up to 100 and an optional value. ultimate goal is to return that its usable.
@@ -1089,3 +863,5 @@ public class Advance : IStatusEffect
 	}
 }
 */
+
+

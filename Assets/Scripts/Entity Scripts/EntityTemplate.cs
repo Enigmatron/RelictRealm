@@ -82,9 +82,9 @@ public abstract partial class ActiveEntity : Entity
     }
 
 
-    RegisterProfile Stats;
-    RegisterProfile Buff;
-    RegisterProfile CC;
+    // RegisterProfile Stats;
+    // RegisterProfile Buff;
+    // RegisterProfile CC;
 }
 public abstract partial class PassiveEntity : Entity
 {
@@ -103,10 +103,11 @@ public abstract partial class PassiveEntity : Entity
 
 public abstract partial class Entity : MonoBehaviour
 {
+    
     //TODO: add base stats here like shield and hp;
 
 
-    RegisterProfile Stats;
+    // RegisterProfile Stats;
     //damage queue can be cleared to allow a frame of invincibility on Shell break
     Queue<Damage> damageQueue;
 
