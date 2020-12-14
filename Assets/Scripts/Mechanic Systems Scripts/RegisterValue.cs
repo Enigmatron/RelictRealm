@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-#region RegisterValue
 //A class for a value that you can change and has events attached to it for when its changed, this can be interpreted as a float or bool
 public class RegisterValue{//TODO make this a generic class that looks for register_value_manager class that manages a data type (boolean, vector, movecommand, float); maybe all values are derivative of floats so its fine
 
@@ -125,9 +124,3 @@ public class RegisterValue{//TODO make this a generic class that looks for regis
 	}
 	#endregion
 }
-#endregion
-
-
-
-
-
