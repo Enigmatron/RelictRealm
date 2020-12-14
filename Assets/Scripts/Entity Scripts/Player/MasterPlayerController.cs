@@ -172,7 +172,7 @@ public class MasterPlayerController :  ActiveEntity /* NetworkBehaviour */
         PlayerInputControl();
         Movement(new Vector3(
             Input.GetAxisRaw("Horizontal"), Input.GetButtonDown("Jump")?1.0f: 0.0f, Input.GetAxisRaw("Vertical")
-            ));
+            ), testmovespeed, testjumpspeed);
     }
     protected override void FixedUpdate()
     {

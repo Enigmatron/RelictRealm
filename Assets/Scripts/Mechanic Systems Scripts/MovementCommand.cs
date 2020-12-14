@@ -21,6 +21,7 @@ public class MovementCommand
     #region variables
     //vector where the subject will go to if there isnt a targetLocation; mutually exclusive with target location
     public Vector3 Direction;
+    public bool Teleportation;
     //the transform where the subject will go to regardless of the direction; just make it a sub-object that links to the subject transform; mutually exclusive with direction
     public Transform TargetLocation;
 

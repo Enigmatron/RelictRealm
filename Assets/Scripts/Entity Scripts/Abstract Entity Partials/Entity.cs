@@ -19,20 +19,23 @@ public abstract partial class Entity : MonoBehaviour
         Tenacity,
         Health_Regen,
         Shield_Regen,
-        IsStunned,
-        IsMovementLocked,
-        Is
+        Stun,
+        Snare,
+        DamageImmunity,
+        CCImmunity,
+        Armor,
+        Silence
 
     }
     //TODO: add base stats here like shield and hp;
 
-
-    RegisterStatProfile<EntityStats> Stats;
+    protected List<MovementCommand> movementCommands;
+    protected RegisterStatProfile<EntityStats> Stats;
     //damage queue can be cleared to allow a frame of invincibility on Shell break
-    Queue<DamageSource> damageQueue;
+    protected Queue<DamageSource> damageQueue;
 
     //the physics involved in the system
-    Rigidbody physics;
+    protected Rigidbody physics;
     //TODO: add a thing so that DOTs can persist thru shells, NVM actually explanation in OneNote
     //List<DamageSources> DamageSources;
 }
