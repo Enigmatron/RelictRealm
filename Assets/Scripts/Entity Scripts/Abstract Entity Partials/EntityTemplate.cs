@@ -418,36 +418,34 @@ public abstract class ActiveEntity : Entity
         {
             movementCommands.Clear();
         }
-        if (movementCommands.Count > 0)
+        ProcessMovementCommand();
+    }
+    public void ProcessMovementCommand()
+    {
+        // Vector3 temp;
+        foreach (MovementCommand x in movementCommands)
         {
-            // Vector3 temp;
-            foreach (MovementCommand x in movementCommands)
+            if (!x.Teleportation)
             {
-                if (!x.Teleportation)
-                {
-                    var temp = transform.position;
-                    Movement(x.Direction, x.Acceleration, 0);
-                    Debug.Log(Vector3.Distance(temp, transform.position));
-                    x.Update(Vector3.Distance(temp, transform.position));
+                var temp = transform.position;
+                Movement(x.Direction, x.Acceleration, 0);
+                // Debug.Log(Vector3.Distance(temp, transform.position));
+                x.Update(Vector3.Distance(temp, transform.position));
 
-                    if (x.DistanceToTravel <= x.DistanceTraveled)
-                    {
-                        Debug.Log("Distance Traveled: " + x.DistanceTraveled);
-                        movementCommands.Remove(x);
-                    }
-                }
-                else
-                {
-                    //TODO: add collision detection code and alternative teleportation: with the Move() collisions stop the function from continuing the teleportation
+                if (x.Finished) movementCommands.Remove(x);
+                
+            }
+            else
+            {
+                //TODO: add collision detection code and alternative teleportation: with the Move() collisions stop the function from continuing the teleportation
 
 
 
-                    // controller.Move(transform.TransformVector(x.Direction.x * x.Acceleration, x.Direction.y * x.Acceleration, x.Direction.z * x.Acceleration));
-                    transform.position += transform.TransformVector(x.Direction.x * x.Acceleration, x.Direction.y * x.Acceleration, x.Direction.z * x.Acceleration);
-                    // 
-                    movementCommands.Remove(x);
-                    // transform.Translate(transform.TransformVector(x.Direction.x * x.Acceleration,x.Direction.y * x.Acceleration,x.Direction.z * x.Acceleration));
-                }
+                // controller.Move(transform.TransformVector(x.Direction.x * x.Acceleration, x.Direction.y * x.Acceleration, x.Direction.z * x.Acceleration));
+                transform.position += transform.TransformVector(x.Direction.x * x.Acceleration, x.Direction.y * x.Acceleration, x.Direction.z * x.Acceleration);
+                // 
+                movementCommands.Remove(x);
+                // transform.Translate(transform.TransformVector(x.Direction.x * x.Acceleration,x.Direction.y * x.Acceleration,x.Direction.z * x.Acceleration));
             }
         }
     }
@@ -496,12 +494,6 @@ public abstract class ActiveEntity : Entity
         EntityDetectionEvents = new List<UnityEvent<Dictionary<ActiveEntity, int>>>();
     }
 }
-public abstract class PassiveEntity : Entity
-{
 
-
-
-
-}
 
 

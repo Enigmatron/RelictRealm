@@ -12,23 +12,23 @@ public class Register{//TODO make this a generic class that looks for register_v
 	#region methods
 	//This method manages observer calls and updates the value of the stack
 	public void updateValue(float val){
-		if(val == 0){
-			return;
-		}
-		if(val > 0 ){
-			OnIncrement.Invoke(val);
-		}
-		else if(val < 0 ){
-			OnDecrement.Invoke(val);
-		}
+		// if(val == 0){
+		// 	return;
+		// }
+		// if(val > 0 ){
+		// 	OnIncrement.Invoke(val);
+		// }
+		// else if(val < 0 ){
+		// 	OnDecrement.Invoke(val);
+		// }
 		value += val;
 		OnChange.Invoke(val);
-		if(ValueAsBool()){
-			OnTrue.Invoke();
-		}
-		else{
-			OnFalse.Invoke();
-		}
+		// if(ValueAsBool()){
+		// 	OnTrue.Invoke();
+		// }
+		// else{
+		// 	OnFalse.Invoke();
+		// }
 	}
 
 	//resets the value of the stack and makes the onreset observer call
@@ -43,23 +43,23 @@ public class Register{//TODO make this a generic class that looks for register_v
 	}
 	//Calls necessary observer methods when the value gets flatly added to
 	public void setValue(float val){
-		if(val == 0){
-			return;
-		}
-		if(val > 0 ){
-			OnIncrement.Invoke(val);
-		}
-		else if(val < 0 ){
-			OnDecrement.Invoke(val);
-		}
+		// if(val == 0){
+		// 	return;
+		// }
+		// if(val > 0 ){
+		// 	OnIncrement.Invoke(val);
+		// }
+		// else if(val < 0 ){
+		// 	OnDecrement.Invoke(val);
+		// }
 		value = val;
 		OnChange.Invoke(val);
-		if(ValueAsBool()){
-			OnTrue.Invoke();
-		}
-		else{
-			OnFalse.Invoke();
-		}
+		// if(ValueAsBool()){
+		// 	OnTrue.Invoke();
+		// }
+		// else{
+		// 	OnFalse.Invoke();
+		// }
 	}
 	#endregion
 
@@ -68,13 +68,13 @@ public class Register{//TODO make this a generic class that looks for register_v
 	#region variables
 	public float value{get; protected set;}
 
-
+	//These were removed as they were seen as unneccessary
 	// all these values have to be moved to EntityRegisterProfile
-	public UnityEvent OnTrue{get; protected set;}
-	public UnityEvent OnFalse{get; protected set;}
+	// public UnityEvent OnTrue{get; protected set;}
+	// public UnityEvent OnFalse{get; protected set;}
 
-	public UnityEvent<float> OnIncrement {get; protected set;}
-	public UnityEvent<float> OnDecrement{get; protected set;}
+	// public UnityEvent<float> OnIncrement {get; protected set;}
+	// public UnityEvent<float> OnDecrement{get; protected set;}
 	public UnityEvent<float> OnChange{get; protected set;}
 	public UnityEvent<float> OnReset{get; protected set;}
 	#endregion
@@ -101,23 +101,23 @@ public class Register{//TODO make this a generic class that looks for register_v
 			obj.OnReset.AddListener(val);
 			return this;
 		}
-		public Builder add_OnDecrement(UnityAction<float> val){
-			obj.OnDecrement.AddListener(val);
-			return this;		
-		}
-		public Builder add_OnIncrement(UnityAction<float> val){
-			obj.OnIncrement.AddListener(val);
-			return this;
-		}
+		// public Builder add_OnDecrement(UnityAction<float> val){
+		// 	obj.OnDecrement.AddListener(val);
+		// 	return this;		
+		// }
+		// public Builder add_OnIncrement(UnityAction<float> val){
+		// 	obj.OnIncrement.AddListener(val);
+		// 	return this;
+		// }
 
-		public Builder add_OnTrue(UnityAction val){
-			obj.OnTrue.AddListener(val);
-			return this;
-		}
-		public Builder add_OnFalse(UnityAction val){
-			obj.OnFalse.AddListener(val);
-			return this;
-		}
+		// public Builder add_OnTrue(UnityAction val){
+		// 	obj.OnTrue.AddListener(val);
+		// 	return this;
+		// }
+		// public Builder add_OnFalse(UnityAction val){
+		// 	obj.OnFalse.AddListener(val);
+		// 	return this;
+		// }
 		//TODO add Builder methods
 
 

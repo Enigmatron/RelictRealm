@@ -10,7 +10,7 @@ public class Resource
     {
 
     }
-    RegisterStatProfile<ResourceVariables> profile;
+    RegisterProfile<ResourceVariables> profile;
 
 
 

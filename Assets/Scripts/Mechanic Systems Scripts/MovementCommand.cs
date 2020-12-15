@@ -25,17 +25,17 @@ public class MovementCommand
         // protected 
         set;
     }
-        public bool Teleportation{
+    public bool Teleportation{
         get;
         // protected 
         set;
     }
     //the transform where the subject will go to regardless of the direction; just make it a sub-object that links to the subject transform; mutually exclusive with direction
-    public Transform TargetLocation{
-        get;
-        // protected 
-        set;
-    }
+    // public Transform TargetLocation{
+    //     get;
+    //     // protected 
+    //     set;
+    // }
     // my code utilizes acceleration values
     //TODO use IRegister or something that ties this as a register/registerStat
     public float Acceleration;
@@ -70,7 +70,7 @@ public class MovementCommand
     {
         // SubjectLocation = null;
         Acceleration = acc;
-        TargetLocation = null;
+        // TargetLocation = null;
         // overrideMovement = over;
         DistanceToTravel = toTravel;
         DistanceTraveled = 0;
@@ -85,7 +85,7 @@ public class MovementCommand
         // overrideMovement = over;
         DistanceToTravel = toTravel;
         DistanceTraveled = 0;
-        TargetLocation = dir;
+        // TargetLocation = dir;
     }
     public class Builder{
         MovementCommand obj;
@@ -94,6 +94,29 @@ public class MovementCommand
         }
         public Builder setAcceletationEQ(AccelerationEQ _acc){
             obj.accelerationEQ = _acc;
+            return this;
+        }
+        public Builder setDistanceToTravel(float dir)
+        {
+            obj.DistanceToTravel = dir;
+            return this;
+        }
+
+        public Builder setDirection(Vector3 dir)
+        {
+            obj.Direction = dir;
+            return this;
+        }
+
+        public Builder setAcceleration(float accl = 60)
+        {
+            obj.Acceleration = accl;
+            return this;
+        }
+
+        public Builder setTeleportation(bool tele = false)
+        {
+            obj.Teleportation = tele;
             return this;
         }
 

@@ -8,7 +8,7 @@ using UnityEngine;
 /// This class is meant to have all registers update if one updates
 /// <Summary>
 //TODO: it may make it easier to work with if other systems make the dictionary for these values rather than it being baked into the register profile: make it a "managed profile"
-public class RegisterStatProfile <Key>
+public class RegisterProfile <Key>
 {
     public Dictionary<Key, RegisterStat> profile;
 
@@ -29,7 +29,7 @@ public class RegisterStatProfile <Key>
     public static Builder Initialize()
     {
         Builder temp = new Builder();
-        temp.obj = new RegisterStatProfile<Key>();
+        temp.obj = new RegisterProfile<Key>();
         return temp;
     }
 
@@ -37,7 +37,7 @@ public class RegisterStatProfile <Key>
     //TODO: make it so that once you've gotten every builder done then its done.
     public class Builder
     {
-        public RegisterStatProfile<Key> obj;
+        public RegisterProfile<Key> obj;
         public Dictionary<Key, RegisterStat.Builder> dict;
 
         // public Builder Define_Base_Value(float val)
