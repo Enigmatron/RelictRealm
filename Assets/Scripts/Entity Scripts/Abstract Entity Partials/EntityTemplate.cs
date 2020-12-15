@@ -399,7 +399,20 @@ public abstract class ActiveEntity : Entity
         EntityDectionEventCall();
         if (Input.GetKeyDown(KeyCode.G))
         {
-            movementCommands.Add(new MovementCommand(Vector3.forward, 30, 0));
+            MovementCommand temp = new MovementCommand(Vector3.forward, 60, 0);
+            temp.DistanceToTravel = 15;
+            temp.DistanceTraveled = 0;
+            temp.Teleportation = false;
+
+            movementCommands.Add(temp);
+            Debug.Log("movement command");
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            MovementCommand temp = new MovementCommand(Vector3.forward, 30, 0);
+            temp.Teleportation = true;
+            Debug.Log("Teleport");
+            movementCommands.Add(temp);
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -410,7 +423,31 @@ public abstract class ActiveEntity : Entity
             // Vector3 temp;
             foreach (MovementCommand x in movementCommands)
             {
-                Movement(x.Direction, x.Acceleration, 0);
+                if (!x.Teleportation)
+                {
+                    var temp = transform.position;
+                    Movement(x.Direction, x.Acceleration, 0);
+                    Debug.Log(Vector3.Distance(temp, transform.position));
+                    x.Update(Vector3.Distance(temp, transform.position));
+
+                    if (x.DistanceToTravel <= x.DistanceTraveled)
+                    {
+                        Debug.Log("Distance Traveled: " + x.DistanceTraveled);
+                        movementCommands.Remove(x);
+                    }
+                }
+                else
+                {
+                    //TODO: add collision detection code and alternative teleportation: with the Move() collisions stop the function from continuing the teleportation
+
+
+
+                    // controller.Move(transform.TransformVector(x.Direction.x * x.Acceleration, x.Direction.y * x.Acceleration, x.Direction.z * x.Acceleration));
+                    transform.position += transform.TransformVector(x.Direction.x * x.Acceleration, x.Direction.y * x.Acceleration, x.Direction.z * x.Acceleration);
+                    // 
+                    movementCommands.Remove(x);
+                    // transform.Translate(transform.TransformVector(x.Direction.x * x.Acceleration,x.Direction.y * x.Acceleration,x.Direction.z * x.Acceleration));
+                }
             }
         }
     }
@@ -461,7 +498,7 @@ public abstract class ActiveEntity : Entity
 }
 public abstract class PassiveEntity : Entity
 {
-    
+
 
 
 
