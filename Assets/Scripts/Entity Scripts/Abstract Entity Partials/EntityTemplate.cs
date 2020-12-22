@@ -399,6 +399,7 @@ public abstract class ActiveEntity : Entity
         EntityDectionEventCall();
         if (Input.GetKeyDown(KeyCode.G))
         {
+            
             MovementCommand temp = new MovementCommand(Vector3.forward, 60, 0);
             temp.DistanceToTravel = 15;
             temp.DistanceTraveled = 0;
@@ -409,7 +410,7 @@ public abstract class ActiveEntity : Entity
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
-            MovementCommand temp = new MovementCommand(Vector3.forward, 30, 0);
+            MovementCommand temp = new MovementCommand(Vector3.back, 30, 0);
             temp.Teleportation = true;
             Debug.Log("Teleport");
             movementCommands.Add(temp);
@@ -428,8 +429,10 @@ public abstract class ActiveEntity : Entity
             if (!x.Teleportation)
             {
                 var temp = transform.position;
+
+                Debug.Log(Time.deltaTime + " mag " + Vector3.Magnitude(x.Direction * x.Acceleration * Time.deltaTime));
                 Movement(x.Direction, x.Acceleration, 0);
-                // Debug.Log(Vector3.Distance(temp, transform.position));
+                Debug.Log(Time.deltaTime + " Praxis " + Vector3.Distance(temp, transform.position));
                 x.Update(Vector3.Distance(temp, transform.position));
 
                 if (x.Finished) movementCommands.Remove(x);

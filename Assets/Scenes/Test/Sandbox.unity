@@ -143,10 +143,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa4ac84678b58d94f84ddb52d99e352f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 32.2
   testmovespeed: 12
   testjumpspeed: 12
   backwardaxis: Vertical
+  gravity: 32.2
   thirdCamera: {fileID: 0}
 --- !u!135 &50927637
 SphereCollider:
@@ -999,6 +999,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SkinWidth
       value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 513208296305367398, guid: c05700cc08545a24bb252719280ef718,
+        type: 3}
+      propertyPath: m_MinMoveDistance
+      value: 1e-10
       objectReference: {fileID: 0}
     - target: {fileID: 513208296305367399, guid: c05700cc08545a24bb252719280ef718,
         type: 3}

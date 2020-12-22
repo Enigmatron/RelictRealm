@@ -38,7 +38,15 @@ public class MovementCommand
     // }
     // my code utilizes acceleration values
     //TODO use IRegister or something that ties this as a register/registerStat
+
+    public float TimeElapsed{
+        get;
+        private
+        set;
+    }
     public float Acceleration;
+    public Transform Target;
+    // public 
     public delegate float AccelerationEQ(Entity _entity);
     public AccelerationEQ accelerationEQ{
         get;
@@ -46,6 +54,13 @@ public class MovementCommand
         set;
     }
 
+    //this is to represent a matrix the represents a function with xyz used traditionally and w used for time
+    public delegate Vector3 DirectionEQ(Entity _entity);
+    public DirectionEQ directionEQ{
+        get;
+        protected
+        set;
+    }
     //
     public float DistanceToTravel{
         get;
@@ -62,16 +77,15 @@ public class MovementCommand
     //This is a nec as you could just give a limited speed boost instead of the movement command
     // public bool overrideMovement;
     #endregion
-    public void Update(float distanceUpdate){
+    public void Update(float distanceUpdate)
+    {
+        TimeElapsed += Time.deltaTime;
         DistanceTraveled += distanceUpdate;
     }
     //
     public MovementCommand(Vector3 dir, float acc, float toTravel, bool over = false, bool pause = true)
     {
-        // SubjectLocation = null;
         Acceleration = acc;
-        // TargetLocation = null;
-        // overrideMovement = over;
         DistanceToTravel = toTravel;
         DistanceTraveled = 0;
         Direction = dir;
@@ -79,13 +93,10 @@ public class MovementCommand
     //
     public MovementCommand(Transform dir, float acc, float toTravel, bool over = false, bool pause = true)
     {
-        // SubjectLocation = null;
         Acceleration = acc;
         Direction = Vector3.zero;
-        // overrideMovement = over;
         DistanceToTravel = toTravel;
         DistanceTraveled = 0;
-        // TargetLocation = dir;
     }
     public class Builder{
         MovementCommand obj;
@@ -94,6 +105,11 @@ public class MovementCommand
         }
         public Builder setAcceletationEQ(AccelerationEQ _acc){
             obj.accelerationEQ = _acc;
+            return this;
+        }
+        public Builder setDirectionEQ(DirectionEQ _dir)
+        {
+            obj.directionEQ = _dir;
             return this;
         }
         public Builder setDistanceToTravel(float dir)
